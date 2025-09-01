@@ -1,5 +1,5 @@
 
-import OtherFeaturesSection from "./components/landing/AutherFeatures";
+import OtherFeaturesSection from "./components/landing/OtherFeatures";
 import CTASection from "./components/landing/CTASection";
 import FeaturesSection from "./components/landing/Features";
 import Footer from "./components/landing/Footer";
