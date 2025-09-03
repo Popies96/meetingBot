@@ -3,9 +3,10 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useAuth } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
-import { AppSidebar } from "./SideBar";
+import { AppSidebar } from "../components/SideBar";
 
-export function ConditionalLayout({ children }: { children: React.ReactNode }) {
+
+const ConditionalLayout = ({ children }: { children: React.ReactNode }) =>{
     const pathname = usePathname()
     const { isSignedIn } = useAuth()
 
@@ -26,3 +27,4 @@ export function ConditionalLayout({ children }: { children: React.ReactNode }) {
         </SidebarProvider>
     )
 }
+export default ConditionalLayout

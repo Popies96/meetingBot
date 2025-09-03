@@ -13,7 +13,6 @@ import { useEffect, useState } from "react"
 export default function HeroSection() {
     const { isSignedIn } = useUser()
         const [scrolled, setScrolled] = useState(false)
-const { setTheme } = useTheme()
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 10)
