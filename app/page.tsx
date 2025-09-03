@@ -10,7 +10,7 @@ import StatsSection from "./components/landing/StatsSection";
 
 export default function Home() {
   return (
-     <div className="min-h-screen bg-black">
+     <div className="min-h-screen ">
       <HeroSection />
       <FeaturesSection />
       <IntegrationsSection />

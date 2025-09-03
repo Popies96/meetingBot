@@ -1,17 +1,34 @@
 'use client'
 
 import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text"
+import Silk from "@/components/Silk/Silk"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs"
 import { ArrowRight, Bot, CheckCircle, ChevronRight, Play, Sparkles } from "lucide-react"
+import { useTheme } from "next-themes"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 export default function HeroSection() {
     const { isSignedIn } = useUser()
+        const [scrolled, setScrolled] = useState(false)
+const { setTheme } = useTheme()
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 10)
+        }
+        window.addEventListener("scroll", handleScroll)
+        return () => window.removeEventListener("scroll", handleScroll)
+    }, [])
     return (
         <>
-            <nav className="border-b border-gray-800 bg-black/80 backdrop-blur-sm sticky top-0 z-50">
+        
+            <nav   className={cn(
+                    "border-b border-gray-800 sticky top-0 z-50 backdrop-blur-sm transition-all duration-300",
+                    scrolled ? "bg-black/80" : "bg-black/20"
+                )}>
+                
                 <div className="max-w-6xl mx-auto px-4 py-4">
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-2">
@@ -24,7 +41,7 @@ export default function HeroSection() {
                         </div>
                         <div className="flex items-center gap-4">
                             {isSignedIn ? (
-                                <Button asChild className="bg-blue-600 hover:bg-blue-700">
+                                <Button asChild className="bg-blue-600  hover:bg-blue-700 dark:text-white">
                                     <Link href="/home">Dashboard</Link>
                                 </Button>
                             ) : (
@@ -51,7 +68,16 @@ export default function HeroSection() {
 
             </nav>
 
-            <section className="py-20 px-4 bg-black">
+            <section className="py-28 px-4 w-full h-full ">
+                  <div className="absolute inset-0 -z-10 w-full h-full">
+                    <Silk
+                        speed={5}
+                        scale={1}
+                        color="#5227ff"
+                        noiseIntensity={1.5}
+                        rotation={0}
+                    />
+                </div>
                 <div className="max-w-4xl mx-auto text-center">
                     <div className="group relative mx-auto flex w-fit items-center justify-center rounded-full px-4 py-1.5 shadow-[inset_0_-8px_10px_#3b82f61f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#3b82f63f] mb-8">
                         <span
@@ -86,7 +112,7 @@ export default function HeroSection() {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                         {isSignedIn ? (
-                            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 px-8 py-4" >
+                            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 px-8 py-4 dark:text-white" >
                                 <Link href="/home" className="group">
                                     <span>Dashboard</span>
                                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
