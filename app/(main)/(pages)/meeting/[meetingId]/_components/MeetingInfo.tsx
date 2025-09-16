@@ -27,8 +27,9 @@ function MeetingInfo({ meetingData }: MeetingInfoProps) {
                 <span className='flex items-center gap-2'>
                     <div className='w-5 h-5 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-border'>
                         {user?.imageUrl ? (
-                            <Image
+                            <img
                                 src={user.imageUrl}
+                              
                                 alt={`${meetingData.userName}'s profile`}
                                 className="w-5 h-5 rounded-full object-cover"
                             />

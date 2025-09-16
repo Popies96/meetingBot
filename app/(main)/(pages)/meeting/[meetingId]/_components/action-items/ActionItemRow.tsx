@@ -76,7 +76,7 @@ function ActionItemRow({
                                             className='flex items-center gap-2'
                                         >
                                             <div className='w-4 h-4 relative flex-shrink-0'>
-                                                <Image
+                                                <img
                                                     src={integration.logo}
                                                     alt={integration.name}
                                                     className='w-full h-full object-contain'
