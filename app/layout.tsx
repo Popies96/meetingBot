@@ -10,7 +10,7 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs'
-import { UsageProvider } from "./contexts/UsageContext";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -43,9 +43,9 @@ export default function RootLayout({
             enableSystem={false}
             disableTransitionOnChange
           >
-            <UsageProvider>
+         
  {children}
-            </UsageProvider>
+          
        
         </ThemeProvider>
       </body>

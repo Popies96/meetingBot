@@ -1,4 +1,4 @@
-import { useUsage } from "@/app/contexts/UsageContext";
+
 import { useState } from "react";
 
 export interface ChatMessage {
@@ -22,16 +22,14 @@ export function useChatCore({
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { canChat, incrementChatUsage } = useUsage();
+ 
 
   const handleSendMessage = async () => {
     if (!chatInput.trim() || isLoading) {
       return;
     }
 
-    if (!canChat) {
-      return;
-    }
+   
 
     setShowSuggestions(false);
     setIsLoading(true);
@@ -61,7 +59,7 @@ export function useChatCore({
       const data = await response.json();
 
       if (response.ok) {
-        await incrementChatUsage();
+        
 
         const botMessage: ChatMessage = {
           id: messages.length + 2,
@@ -70,16 +68,8 @@ export function useChatCore({
           timestamp: new Date(),
         };
         setMessages((prev) => [...prev, botMessage]);
-      } else {
-        if (data.upgradeRequired) {
-          const upgradeMessage: ChatMessage = {
-            id: messages.length + 2,
-            content: `${data.error} Visit the Pricing page to upgrade your plan and continue chatting!`,
-            isBot: true,
-            timestamp: new Date(),
-          };
-          setMessages((prev) => [...prev, upgradeMessage]);
-        } else {
+      }
+         else {
           const errorMessage: ChatMessage = {
             id: messages.length + 2,
             content:
@@ -89,7 +79,7 @@ export function useChatCore({
           };
           setMessages((prev) => [...prev, errorMessage]);
         }
-      }
+      
     } catch (error) {
       console.error("chat error:", error);
       const errorMessage: ChatMessage = {
@@ -106,9 +96,7 @@ export function useChatCore({
   };
 
   const handleSuggestionClick = (suggestion: string) => {
-    if (!canChat) {
-      return;
-    }
+  
 
     setShowSuggestions(false);
     setChatInput(suggestion);
@@ -134,6 +122,6 @@ export function useChatCore({
     handleSendMessage,
     handleSuggestionClick,
     handleInputChange,
-    canChat,
+    
   };
 }

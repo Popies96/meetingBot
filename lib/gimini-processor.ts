@@ -25,7 +25,7 @@ export async function processGeminiTranscript(transcript: any) {
       throw new Error("No transcript content found");
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const chat = model.startChat();
 
     // Send system prompt

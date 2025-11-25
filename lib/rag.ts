@@ -1,5 +1,5 @@
 import { prisma } from "./prisma";
-import { chatWithAI, createEmbedding, createManyEmbeddings } from "./openai";
+import { chatWithAI, createEmbedding, createManyEmbeddings } from "./gimini";
 
 import { chunkTranscript, extractSpeaker } from "./text-chunker";
 import { saveManyVectors, searchVectors } from "./pinecone";

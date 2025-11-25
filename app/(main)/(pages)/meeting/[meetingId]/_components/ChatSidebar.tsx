@@ -1,4 +1,4 @@
-import { useUsage } from '@/app/contexts/UsageContext'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Send } from 'lucide-react'
@@ -28,7 +28,7 @@ function ChatSidebar({
     onSendMessage,
     onSuggestionClick
 }: ChatSidebarProps) {
-    const { canChat } = useUsage()
+   
     const chatSuggestions = [
         "What deadlines were discussed in this meeting?",
         "Write a follow-up email for the team",
@@ -80,11 +80,11 @@ function ChatSidebar({
                             <button
                                 key={index}
                                 onClick={() => onSuggestionClick(suggestion)}
-                                disabled={!canChat}
-                                className={`w-4/5 rounded-lg p-4 border transition-colors text-center ${canChat
-                                    ? 'bg-primary/10 text-foreground border-primary/20 hover:bg-primary/20'
-                                    : 'bg-muted/50 text-muted-foreground border-muted cursor-not-allowed'
-                                    }`}
+                                
+                                className='w-4/5 rounded-lg p-4 border transition-colors text-center 
+                                     bg-primary/10 text-foreground border-primary/20 hover:bg-primary/20'
+                                   
+                                    
                             >
                                 <p className='text-sm'>⚡️ {suggestion}</p>
                             </button>
@@ -93,14 +93,7 @@ function ChatSidebar({
                     </div>
                 )}
 
-                {!canChat && (
-                    <div className='text-center p-4'>
-                        <p className='text-xs text-muted-foreground mb-2'> Daily chat limit reached</p>
-                        <a href="/pricing" className='text-xs text-primary underline'>
-                            Upgrade to continute chatting
-                        </a>
-                    </div>
-                )}
+            
             </div>
 
             <div className='p-4 border-t border-border'>
@@ -115,15 +108,15 @@ function ChatSidebar({
                                 onSendMessage()
                             }
                         }}
-                        placeholder={canChat ? "Ask about this meeting..." : "Daily limit reached"}
+                        placeholder={"Ask about this meeting..." }
                         className='flex-1'
-                        disabled={!canChat}
+                        
                     />
 
                     <Button
                         type='button'
                         onClick={onSendMessage}
-                        disabled={!chatInput.trim() || !canChat}
+                        disabled={!chatInput.trim() }
                     >
                         <Send className='h-4 w-4' />
                     </Button>
