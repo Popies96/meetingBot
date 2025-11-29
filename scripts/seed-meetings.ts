@@ -36,7 +36,7 @@ async function seedMeetings() {
       fs.readFileSync(path.join(dataPath, "title.json"), "utf8")
     );
 
-    const userId = "user_32DUbDacGflwCYo3rLNYOO3xon7";
+    const userId = "user_36AEe6MNJi2QIB6vH6sSorwpMpn";
     const recordingUrl =
       "https://meetingbot1.s3.eu-north-1.amazonaws.com/test-audio.mp3";
 
@@ -97,9 +97,22 @@ async function seedMeetings() {
         },
       });
     }
+
+    console.log(`Successfully seeded ${meetings.length} meetings!`);
   } catch (error) {
     console.error("error seeding meetings bruh", error);
+    throw error;
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
-seedMeetings();
+seedMeetings()
+  .then(() => {
+    console.log("Seed completed successfully");
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error("Seed failed:", error);
+    process.exit(1);
+  });

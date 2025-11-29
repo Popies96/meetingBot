@@ -10,9 +10,9 @@ export async function GET(request: NextRequest) {
 
   const slackInstallUrl = `https://slack.com/oauth/v2/authorize?client_id=${
     process.env.SLACK_CLIENT_ID
-  }&scope=app_mentions:read,channels:read,channels:history,groups:history,groups:read,chat:write,im:history,im:read,im:write,mpim:history,mpim:read,mpim:write,users:read,users:read.email&redirect_uri=${encodeURIComponent(
+  }&scope=app_mentions:read,channels:read,channels:history,groups:history,groups:read,chat:write,im:history,im:read,im:write,mpim:history,mpim:read,mpim:write,users:read,users:read.email&redirect_uri=${
     redirectUri
-  )}&state=${encodeURIComponent(state)}`;
+  }&state=${encodeURIComponent(state)}`;
 
   return NextResponse.redirect(slackInstallUrl);
 }
