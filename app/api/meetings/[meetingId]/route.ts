@@ -4,9 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ meetingId: string }> | { meetingId: string } }
+  { params }: { params: Promise<{ meetingId: string }> }
 ) {
-  const params = await context.params;
   try {
     const { userId: clerkUserId } = await auth();
 
@@ -21,7 +20,7 @@ export async function GET(
           select: {
             id: true,
             firstName: true,
-            LastName: true,
+            LastName:true,
             email: true,
             clerkId: true,
           },
@@ -50,10 +49,8 @@ export async function GET(
 
 export async function DELETE(
   request: NextRequest,
-  context: { params: Promise<{ meetingId: string }> | { meetingId: string } }
-  
+  { params }: { params: { meetingId: string } }
 ) {
-  const params = await context.params;
   try {
     const { userId } = await auth();
 
