@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
         validToken,
         integration.workspaceId
       );
-      const selectedProject = projects.values.find((p) => p.id === projectId);
+      const selectedProject = projects.values.find((p: { id: any; }) => p.id === projectId);
 
       if (!selectedProject) {
         return NextResponse.json(
