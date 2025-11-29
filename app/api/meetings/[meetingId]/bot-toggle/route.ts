@@ -6,7 +6,7 @@ export async function POST(
   request: NextRequest,
   context: { params: Promise<{ meetingId: string }> | { meetingId: string } }
 ) {
-  const params = await context.params; // works if params is Promise or plain object
+  const params = await context.params; 
   const { meetingId } = params;
 
   try {
