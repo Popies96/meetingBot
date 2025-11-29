@@ -46,9 +46,7 @@ export async function POST(request: NextRequest) {
         }
       );
 
-      // Write buffer to stream
-      const bufferStream = require("stream").Readable.from(buffer);
-      bufferStream.pipe(uploadStream);
+      
     });
 
     return NextResponse.json({

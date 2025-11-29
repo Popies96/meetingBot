@@ -4,7 +4,8 @@ import nodemailer from 'nodemailer'
 
 interface EmailData {
     userEmail: string
-    userName: string
+    userFirstName: string
+    userLastName: string
     meetingTitle: string
     summary: string
     actionItems: Array<{
@@ -27,7 +28,7 @@ export async function sendMeetingSummaryEmail(data: EmailData) {
     try {
         const emailHtml = await render(
             <MeetingSummaryEmailNew
-                userName={data.userName}
+                userName={data.userFirstName + '' + data.userLastName}
                 meetingTitle={data.meetingTitle}
                 summary={data.summary}
                 actionItems={data.actionItems}
