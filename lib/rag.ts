@@ -117,7 +117,7 @@ export async function chatWithAllMeetings(userId: string, question: string) {
     Here's what was discussed across their meetings:
     ${context}
 
-    Answer the user's question based only on the meeting content above. When you reference something, mention which meetings its from.`;
+    Answer the user's question based only on the meeting content above. When you reference something, mention which meetings its from. and if theres no meeting say you don't have meeting `;
 
   const answer = await chatWithAI(systemPrompt, question);
 
