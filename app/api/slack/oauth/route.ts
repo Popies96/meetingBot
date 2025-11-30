@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
         client_id: process.env.SLACK_CLIENT_ID!,
         client_secret: process.env.SLACK_CLIENT_SECRET!,
         code: code,
-        redirect_uri: process.env.SLACK_REDIRECT_URL!,
+        redirect_uri: redirectUri,
       }),
     });
 
