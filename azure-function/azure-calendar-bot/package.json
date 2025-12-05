@@ -1,0 +1,19 @@
+{
+  "name": "bot-scheduler-azure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/functions/*.js",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@azure/functions": "^4.10.0",
+    "@prisma/client": "^5.0.0",
+    "google-auth-library": "^9.0.0",
+    "prisma": "^5.0.0"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.x"
+  }
+}
