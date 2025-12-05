@@ -36,7 +36,7 @@ async function seedMeetings() {
       fs.readFileSync(path.join(dataPath, "title.json"), "utf8")
     );
 
-    const userId = "user_36AEe6MNJi2QIB6vH6sSorwpMpn";
+    const userId = "user_36A1SanQwSyXEOgHIdMzo6pp3xz";
     const recordingUrl =
       "https://meetingbot1.s3.eu-north-1.amazonaws.com/test-audio.mp3";
 
