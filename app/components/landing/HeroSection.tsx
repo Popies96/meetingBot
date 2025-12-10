@@ -37,12 +37,12 @@ export default function HeroSection() {
                             ) : (
                                 <>
                                     <SignInButton mode="modal">
-                                        <Button variant="outline" className="border-gray-700 text-gray-700 hover:bg-gray-800 hover:text-white cursor-pointer">
+                                        <Button variant="outline" className="border-white text-white hover:bg-gray-800 hover:text-white cursor-pointer">
                                             Sign In
                                         </Button>
                                     </SignInButton>
                                     <SignUpButton mode="modal">
-                                        <Button className="bg-blue-600 hover:bg-blue-700 cursor-pointer">
+                                        <Button className="bg-blue-600 text-white hover:bg-blue-700 cursor-pointer">
                                             Get Started
                                         </Button>
                                     </SignUpButton>
@@ -135,13 +135,13 @@ export default function HeroSection() {
                             </Button>
                         ) : (
                             <SignUpButton mode="modal">
-                                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 px-8 py-4 group cursor-pointer">
+                                <Button size="lg" className="bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 group cursor-pointer">
                                     <span>Start Free Trial</span>
                                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                                 </Button>
                             </SignUpButton>
                         )}
-                        <Button variant="outline" size="lg" className="border-gray-700 text-gray-700 hover:bg-gray-800 hover:text-white px-8 py-4 cursor-pointer">
+                        <Button variant="outline" size="lg" className="border-gray-700 text-white hover:bg-gray-800 hover:text-white px-8 py-4 cursor-pointer">
                             <Play className="w-5 h-5 mr-2" />
                             <span>Watch Demo</span>
                         </Button>
