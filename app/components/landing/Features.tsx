@@ -1,3 +1,4 @@
+import { AnimatedGradientText } from '@/components/magicui/animated-gradient-text'
 import { Bot, Calendar, Mail, MessageSquare, Share2, Slack } from 'lucide-react'
 import React from 'react'
 
@@ -53,9 +54,11 @@ function FeaturesSection() {
                 <div className='text-center mb-16'>
                     <h2 className='text-3xl md:text-4xl font-bold text-white mb-4'>
                         Everything you need for{' '}
-                        <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600  bg-clip-text text-transparent">
+                        <AnimatedGradientText>
+                        <span className="  bg-clip-text text-transparent">
                             Smarter Meetings
                         </span>
+                        </AnimatedGradientText>
                     </h2>
                     <p className="text-lg max-w-2xl mx-auto bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(156,163,175,0.3)]">
                         From AI summaries to seamless integrations, we've got every aspect covered.
