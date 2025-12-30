@@ -9,6 +9,7 @@ import AttendeeAvatars from './AttendeeAvatars'
 interface PastMeetingsProps {
     pastMeetings: PastMeeting[]
     pastLoading: boolean
+    searchLoading?: boolean
     onMeetingClick: (id: string) => void
     getAttendeeList: (attendees: any) => string[]
     getInitials: (name: string) => string
@@ -17,6 +18,7 @@ interface PastMeetingsProps {
 function PastMeetings({
     pastMeetings,
     pastLoading,
+    searchLoading,
     onMeetingClick,
     getAttendeeList,
     getInitials
@@ -48,6 +50,15 @@ function PastMeetings({
                     </div>
                 ))}
 
+            </div>
+        )
+    }
+
+    if (searchLoading) {
+        return (
+            <div className='bg-card rounded-lg p-8 border border-border flex items-center justify-center gap-2 text-muted-foreground'>
+                <span className='h-5 w-5 border-2 border-primary border-t-transparent rounded-full animate-spin'></span>
+                <span className='text-sm'>Searching...</span>
             </div>
         )
     }

@@ -2,7 +2,7 @@ import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
 export interface Integration {
-  platform: "google-calendar" | "trello" | "jira" | "asana" | "slack";
+  platform: "google-calendar" | "trello" | "jira" | "asana" | "slack" | "zoom" | "discord" | "notion" | "linear" | "salesforce" | "hubspot";
   name: string;
   description: string;
   connected: boolean;
@@ -51,6 +51,48 @@ export function useIntegrations() {
       description: "Auto-Sync meetings",
       connected: false,
       logo: "/gcal.png",
+    },
+    {
+      platform: "zoom",
+      name: "Zoom",
+      description: "Sync meeting recordings and transcripts",
+      connected: false,
+      logo: "/zoom.png",
+    },
+    {
+      platform: "discord",
+      name: "Discord",
+      description: "Share meeting summaries to Discord servers",
+      connected: false,
+      logo: "/discord.png",
+    },
+    {
+      platform: "notion",
+      name: "Notion",
+      description: "Save meeting notes to your Notion workspace",
+      connected: false,
+      logo: "/notion.png",
+    },
+    {
+      platform: "linear",
+      name: "Linear",
+      description: "Create issues from action items",
+      connected: false,
+      logo: "/linear.png",
+    },
+    {
+      platform: "salesforce",
+      name: "Salesforce",
+      description: "Log meetings and sync with CRM",
+      connected: false,
+      logo: "/salesforce.png",
+    },
+    {
+      platform: "hubspot",
+      name: "HubSpot",
+      description: "Create deals and sync meeting data",
+      connected: false,
+      logo: "/hubspot.png",
     },
   ]);
 

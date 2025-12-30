@@ -6,10 +6,12 @@ import { useRouter } from 'next/navigation'
 import PastMeetings from './_components/PastMeeting'
 import UpcomingMeetings from './_components/UpcomingMeeting'
 import { Button } from '@/components/ui/button'
+import { useSearch } from '@/app/contexts/SearchContext'
 
 
 function Home() {
     const [showUpcoming, setShowUpcoming] = useState(true)
+    const { searchResults, searchQuery, startDate, endDate, attendeeEmail, isSearching } = useSearch()
 
     const {
         userId,
@@ -33,6 +35,12 @@ function Home() {
     const handleMeetingClick = (meetingId: string) => {
         router.push(`/meeting/${meetingId}`)
     }
+
+    const hasActiveSearch = searchQuery || startDate || endDate || attendeeEmail
+
+    // Use search results if available, otherwise use all past meetings
+    const displayMeetings = hasActiveSearch ? searchResults : pastMeetings
+
     if (!userId) {
         return (
             <div className='flex items-center justify-center h-screen'>
@@ -79,12 +87,18 @@ function Home() {
                     <div>
                         <div className='mb-6'>
                             <h2 className='text-2xl font-bold text-foreground'>
-                                Past Meetings
+                                {hasActiveSearch ? 'Search Results' : 'Past Meetings'}
                             </h2>
+                            {hasActiveSearch && (
+                                <p className='text-sm text-muted-foreground mt-2'>
+                                    Found {displayMeetings.length} meeting{displayMeetings.length !== 1 ? 's' : ''}
+                                </p>
+                            )}
                         </div>
                         <PastMeetings
-                            pastMeetings={pastMeetings}
+                            pastMeetings={displayMeetings}
                             pastLoading={pastLoading}
+                            searchLoading={isSearching}
                             onMeetingClick={handleMeetingClick}
                             getAttendeeList={getAttendeeList}
                             getInitials={getInitials}
@@ -98,12 +112,18 @@ function Home() {
                 <div className='flex-1'>
                     <div className='mb-6'>
                         <h2 className='text-2xl font-bold text-foreground'>
-                            Past Meetings
+                            {hasActiveSearch ? 'Search Results' : 'Past Meetings'}
                         </h2>
+                        {hasActiveSearch && (
+                            <p className='text-sm text-muted-foreground mt-2'>
+                                Found {displayMeetings.length} meeting{displayMeetings.length !== 1 ? 's' : ''}
+                            </p>
+                        )}
                     </div>
                     <PastMeetings
-                        pastMeetings={pastMeetings}
+                        pastMeetings={displayMeetings}
                         pastLoading={pastLoading}
+                        searchLoading={isSearching}
                         onMeetingClick={handleMeetingClick}
                         getAttendeeList={getAttendeeList}
                         getInitials={getInitials}

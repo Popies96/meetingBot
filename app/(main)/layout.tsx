@@ -5,6 +5,7 @@ import { useAuth } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { AppSidebar } from "../components/SideBar";
 import { NavBar } from "../components/NavBar";
+import { SearchProvider } from "../contexts/SearchContext";
 
 
 const ConditionalLayout = ({ children }: { children: React.ReactNode }) =>{
@@ -18,16 +19,18 @@ const ConditionalLayout = ({ children }: { children: React.ReactNode }) =>{
     }
 
     return (
-        <SidebarProvider defaultOpen={true}>
-            <AppSidebar />
-            
-            <SidebarInset>
-                <NavBar />
-                <main className="flex-1">
-                    {children}
-                </main>
-            </SidebarInset>
-        </SidebarProvider>
+        <SearchProvider>
+            <SidebarProvider defaultOpen={true}>
+                <AppSidebar />
+                
+                <SidebarInset>
+                    <NavBar />
+                    <main className="flex-1">
+                        {children}
+                    </main>
+                </SidebarInset>
+            </SidebarProvider>
+        </SearchProvider>
     )
 }
 export default ConditionalLayout
