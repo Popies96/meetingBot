@@ -108,14 +108,7 @@ export function NavBar() {
                             className="pl-10 pr-4 h-9 bg-muted border-0 rounded-lg"
                         />
                     </div>
-                    <Button
-                        onClick={handleSearch}
-                        size="icon"
-                        className="h-9 w-9 flex-shrink-0"
-                        title="Search"
-                    >
-                        <Search className="h-4 w-4" />
-                    </Button>
+                   
                 </div>
 
                 {/* Filter Button Beside Search */}
