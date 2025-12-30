@@ -1,8 +1,8 @@
 import { Bot, DollarSign, Home, Layers3, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const items = [
     {
@@ -34,43 +34,59 @@ const items = [
 
 export function AppSidebar() {
     const pathname = usePathname()
-
-  
-
-
-   
-
-    
+    const { state } = useSidebar()
+    const isCollapsed = state === "collapsed"
 
     return (
-        <Sidebar collapsible="none" className="border-r border-sidebar-border h-screen">
-            <SidebarHeader className="border-b border-sidebar-border p-4">
-                <div className="flex items-center gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
-                        <Bot className="w-4 h-4" />
+        <Sidebar collapsible="icon">
+            <SidebarHeader className="border-b">
+                <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
+                            <Bot className="h-5 w-5" />
+                        </div>
+                        <span className="text-lg font-semibold text-sidebar-foreground truncate group-data-[collapsible=icon]:hidden">
+                            MeetingBot
+                        </span>
                     </div>
-                    <span className="text-lg font-semibold text-sidebar-foreground">
-                        MeetingBot
-                    </span>
+                    
                 </div>
             </SidebarHeader>
 
-            <SidebarContent className="flex-1 p-4">
+            <SidebarContent>
                 <SidebarGroup>
                     <SidebarGroupContent>
-                        <SidebarMenu className="space-y-2">
+                        <SidebarMenu>
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton
-                                        asChild
-                                        isActive={pathname === item.url}
-                                        className="w-full justify-start gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-primary data-[active=true]:text-sidebar-primary-foreground"
-                                    >
-                                        <Link href={item.url}>
-                                            <item.icon className="w-4 h-4" />
-                                            <span>{item.title}</span>
-                                        </Link>
-                                    </SidebarMenuButton>
+                                    {isCollapsed ? (
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <SidebarMenuButton
+                                                    asChild
+                                                    isActive={pathname === item.url}
+                                                >
+                                                    <Link href={item.url}>
+                                                        <item.icon className="h-5 w-5" />
+                                                        <span>{item.title}</span>
+                                                    </Link>
+                                                </SidebarMenuButton>
+                                            </TooltipTrigger>
+                                            <TooltipContent side="right">
+                                                {item.title}
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    ) : (
+                                        <SidebarMenuButton
+                                            asChild
+                                            isActive={pathname === item.url}
+                                        >
+                                            <Link href={item.url}>
+                                                <item.icon className="h-5 w-5" />
+                                                <span>{item.title}</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    )}
                                 </SidebarMenuItem>
                             ))}
                         </SidebarMenu>
@@ -78,11 +94,8 @@ export function AppSidebar() {
                 </SidebarGroup>
             </SidebarContent>
 
-            <SidebarFooter className="p-4 mt-auto">
-              
-
+            <SidebarFooter>
             </SidebarFooter>
 
         </Sidebar>
     )
-}

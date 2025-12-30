@@ -1,9 +1,10 @@
 'use client'
 
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { useAuth } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { AppSidebar } from "../components/SideBar";
+import { NavBar } from "../components/NavBar";
 
 
 const ConditionalLayout = ({ children }: { children: React.ReactNode }) =>{
@@ -18,12 +19,14 @@ const ConditionalLayout = ({ children }: { children: React.ReactNode }) =>{
 
     return (
         <SidebarProvider defaultOpen={true}>
-            <div className="flex h-screen w-full">
-                <AppSidebar />
-                <main className="flex-1 overflow-auto">
+            <AppSidebar />
+            
+            <SidebarInset>
+                <NavBar />
+                <main className="flex-1">
                     {children}
                 </main>
-            </div>
+            </SidebarInset>
         </SidebarProvider>
     )
 }

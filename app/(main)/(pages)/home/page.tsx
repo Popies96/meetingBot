@@ -1,13 +1,15 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useMeetings } from './hooks/useMeetings'
 import { useRouter } from 'next/navigation'
 import PastMeetings from './_components/PastMeeting'
 import UpcomingMeetings from './_components/UpcomingMeeting'
+import { Button } from '@/components/ui/button'
 
 
 function Home() {
+    const [showUpcoming, setShowUpcoming] = useState(true)
 
     const {
         userId,
@@ -41,7 +43,58 @@ function Home() {
 
     return (
         <div className='min-h-screen bg-background'>
-            <div className='flex gap-6 p-6'>
+            {/* Mobile toggle buttons */}
+            <div className='md:hidden flex gap-2 p-4 border-b'>
+                <Button 
+                    variant={showUpcoming ? 'default' : 'outline'}
+                    onClick={() => setShowUpcoming(true)}
+                    className='flex-1'
+                >
+                    Upcoming Meetings
+                </Button>
+                <Button 
+                    variant={!showUpcoming ? 'default' : 'outline'}
+                    onClick={() => setShowUpcoming(false)}
+                    className='flex-1'
+                >
+                    Past Meetings
+                </Button>
+            </div>
+
+            {/* Mobile view */}
+            <div className='md:hidden p-4'>
+                {showUpcoming ? (
+                    <UpcomingMeetings
+                        upcomingEvents={upcomingEvents}
+                        connected={connected}
+                        error={error}
+                        loading={loading}
+                        initialLoading={initialLoading}
+                        botToggles={botToggles}
+                        onRefresh={fetchUpcomingEvents}
+                        onToggleBot={toggleBot}
+                        onConnectCalendar={directOAuth}
+                    />
+                ) : (
+                    <div>
+                        <div className='mb-6'>
+                            <h2 className='text-2xl font-bold text-foreground'>
+                                Past Meetings
+                            </h2>
+                        </div>
+                        <PastMeetings
+                            pastMeetings={pastMeetings}
+                            pastLoading={pastLoading}
+                            onMeetingClick={handleMeetingClick}
+                            getAttendeeList={getAttendeeList}
+                            getInitials={getInitials}
+                        />
+                    </div>
+                )}
+            </div>
+
+            {/* Desktop view */}
+            <div className='hidden md:flex gap-6 p-6'>
                 <div className='flex-1'>
                     <div className='mb-6'>
                         <h2 className='text-2xl font-bold text-foreground'>

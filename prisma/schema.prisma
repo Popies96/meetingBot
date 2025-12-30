@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-
 }
 
 datasource db {
@@ -15,27 +8,20 @@ datasource db {
 }
 
 model User {
-  id       String    @id
-  clerkId  String    @unique
-  email    String?
-  firstName     String?
-  LastName      String?
-  meetings Meeting[]
-
-  botName     String? @default("Meeting Bot")
-  botImageUrl String?
-
-  googleAccessToken  String?
-  googleRefreshToken String?
-  googleTokenExpiry  DateTime?
-  calendarConnected  Boolean   @default(false)
-
+  id                   String    @id
+  clerkId              String    @unique
+  email                String?
+  botName              String?   @default("Meeting Bot")
+  botImageUrl          String?
+  googleAccessToken    String?
+  googleRefreshToken   String?
+  googleTokenExpiry    DateTime?
+  calendarConnected    Boolean   @default(false)
   slackUserId          String?
   slackTeamId          String?
-  slackConnected       Boolean @default(false)
+  slackConnected       Boolean   @default(false)
   preferredChannelId   String?
   preferredChannelName String?
-
   currentPlan          String    @default("free")
   subscriptionStatus   String    @default("inactive")
   stripeCustomerId     String?
@@ -43,16 +29,18 @@ model User {
   billingPeriodStart   DateTime?
   meetingsThisMonth    Int       @default(0)
   chatMessagesToday    Int       @default(0)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  LastName             String?
+  firstName            String?
+  meetings             Meeting[]
 }
 
 model SlackInstallation {
   id            String   @id @default(cuid())
   teamId        String   @unique
   teamName      String
-  botToken      String   @db.Text
+  botToken      String
   installedBy   String
   installerName String?
   active        Boolean  @default(true)
@@ -61,42 +49,36 @@ model SlackInstallation {
 }
 
 model Meeting {
-  id          String   @id @default(cuid())
-  userId      String
-  title       String
-  description String?
-  meetingUrl  String?
-  startTime   DateTime
-  endTime     DateTime
-  attendees   Json?
-
-  calendarEventId String? @unique
-  isFromCalendar  Boolean @default(false)
-
-  botScheduled Boolean   @default(true)
-  botSent      Boolean   @default(false)
-  botId        String?
-  botJoinedAt  DateTime?
-
-  meetingEnded    Boolean @default(false)
-  transcriptReady Boolean @default(false)
+  id              String            @id @default(cuid())
+  userId          String
+  title           String
+  description     String?
+  meetingUrl      String?
+  startTime       DateTime
+  endTime         DateTime
+  attendees       Json?
+  calendarEventId String?           @unique
+  isFromCalendar  Boolean           @default(false)
+  botScheduled    Boolean           @default(true)
+  botSent         Boolean           @default(false)
+  botId           String?
+  botJoinedAt     DateTime?
+  meetingEnded    Boolean           @default(false)
+  transcriptReady Boolean           @default(false)
   transcript      Json?
   recordingUrl    String?
   speakers        Json?
-
-  summary        String?
-  actionItems    Json?
-  processed      Boolean   @default(false)
-  processedAt    DateTime?
-  emailSent      Boolean   @default(false)
-  emailSentAt    DateTime?
-  ragProcessed   Boolean   @default(false)
-  ragProcessedAt DateTime?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  summary         String?
+  actionItems     Json?
+  processed       Boolean           @default(false)
+  processedAt     DateTime?
+  emailSent       Boolean           @default(false)
+  emailSentAt     DateTime?
+  ragProcessed    Boolean           @default(false)
+  ragProcessedAt  DateTime?
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   TranscriptChunk TranscriptChunk[]
 }
 
@@ -104,19 +86,17 @@ model UserIntegration {
   id           String    @id @default(cuid())
   userId       String
   platform     String
-  accessToken  String    @db.Text
-  refreshToken String?   @db.Text
+  accessToken  String
+  refreshToken String?
   expiresAt    DateTime?
-
-  boardId     String?
-  boardName   String?
-  projectId   String?
-  projectName String?
-  workspaceId String?
-  domain      String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  boardId      String?
+  boardName    String?
+  projectId    String?
+  projectName  String?
+  workspaceId  String?
+  domain       String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   @@unique([userId, platform])
 }
@@ -125,7 +105,7 @@ model TranscriptChunk {
   id          String   @id @default(cuid())
   meetingId   String
   chunkIndex  Int
-  content     String   @db.Text
+  content     String
   speakerName String?
   vectorId    String?
   createdAt   DateTime @default(now())
