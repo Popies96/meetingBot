@@ -27,10 +27,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const normalizedUrl = meetingUrl.trim().startsWith('http')
+      ? meetingUrl.trim()
+      : `https://${meetingUrl.trim()}`;
+
     // Validate meeting URL format
-    const isValidUrl = meetingUrl.includes('meet.google.com') || 
-                       meetingUrl.includes('zoom.us') ||
-                       meetingUrl.includes('teams.microsoft.com');
+    const isValidUrl = normalizedUrl.startsWith('https://') && (
+      normalizedUrl.includes('meet.google.com') ||
+      normalizedUrl.includes('zoom.us') ||
+      normalizedUrl.includes('teams.microsoft.com')
+    );
     
     if (!isValidUrl) {
       return NextResponse.json(
@@ -46,7 +52,7 @@ export async function POST(request: NextRequest) {
         userId: user.id,
         title: `Instant ${platform === 'google-meet' ? 'Google Meet' : 'Zoom'} Meeting`,
         description: `Instant meeting joined at ${now.toLocaleString()}`,
-        meetingUrl: meetingUrl,
+        meetingUrl: normalizedUrl,
         startTime: now,
         endTime: new Date(now.getTime() + 60 * 60 * 1000), // 1 hour default
         botScheduled: true,
@@ -69,7 +75,7 @@ export async function POST(request: NextRequest) {
 
     // Prepare request body following the lambda function pattern
     const requestBody: any = {
-      meeting_url: meetingUrl,
+      meeting_url: normalizedUrl,
       bot_name: user.botName || "AI Notetaker",
       bot_image: user.botImageUrl || undefined,
       recording_mode: "speaker_view",
@@ -80,7 +86,7 @@ export async function POST(request: NextRequest) {
         waiting_room_timeout: 600,
       },
       webhook_url:
-        process.env.WEBHOOK_URL
+        process.env.WEBHOOK_URL || `${process.env.NEXT_PUBLIC_APP_URL}/api/webhooks/meetingbaas`,
       extra: {
         meeting_id: meeting.id,
         user_id: user.id,
