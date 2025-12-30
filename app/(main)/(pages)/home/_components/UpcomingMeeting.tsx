@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Clock } from 'lucide-react'
 import { format } from 'date-fns'
+import InstantMeeting from './InstantMeeting'
 
 interface UpcomingMeetingsProps {
     upcomingEvents: CalendarEvent[]
@@ -30,6 +31,8 @@ function UpcomingMeetings({
 }: UpcomingMeetingsProps) {
     return (
         <div>
+            <InstantMeeting />
+            
             <div className='flex justify-between items-center mb-6'>
                 <h2 className='text-xl font-bold text-foreground'>Upcoming</h2>
                 <span className='text-sm text-muted-foreground'>({upcomingEvents.length})</span>
