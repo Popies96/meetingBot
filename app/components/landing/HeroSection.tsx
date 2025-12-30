@@ -53,9 +53,9 @@ export default function HeroSection() {
                 </div>
             </nav>
 
-            <section className="relative py-55  px-4 w-full h-full -mt-[73px] pt-[101px]">
-                <div className="absolute inset-0 -z-10 w-full h-full bg-black">
-                    <div className="blur-md">
+            <section className="relative min-h-screen px-4 w-full -mt-[73px] pt-[101px] flex items-center">
+                <div className="absolute inset-0 -z-10 w-full min-h-screen bg-black overflow-hidden">
+                    <div className="blur-md w-full h-full min-h-screen">
                     <ColorBends
                         colors={["#ff4d00", "#8a5cff", "#00ffd1"]}
                         rotation={0}
@@ -70,7 +70,7 @@ export default function HeroSection() {
                     />
                     </div>
                 </div>
-                <div className="max-w-4xl mx-auto text-center pt-20">
+                <div className="max-w-4xl mx-auto text-center w-full py-10 md:py-20">
                     <div 
                         className={cn(
                             "group relative mx-auto flex w-fit items-center justify-center rounded-full px-4 py-1.5 shadow-[inset_0_-8px_10px_#3b82f61f] transition-all duration-1000 ease-out hover:shadow-[inset_0_-5px_10px_#3b82f63f] mb-8",
