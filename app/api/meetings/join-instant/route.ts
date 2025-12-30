@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
         botScheduled: true,
         botSent: false,
         isFromCalendar: false,
-        attendees: null,
+        attendees: user.email,
       },
     });
 
@@ -78,12 +78,9 @@ export async function POST(request: NextRequest) {
       speech_to_text: { provider: "Default" },
       automatic_leave: {
         waiting_room_timeout: 600,
-        noone_joined_timeout: 600,
-        everyone_left_timeout: 300,
       },
       webhook_url:
-        process.env.WEBHOOK_URL ||
-        `${process.env.NEXT_PUBLIC_APP_URL}/api/webhooks/meetingbaas`,
+        process.env.WEBHOOK_URL
       extra: {
         meeting_id: meeting.id,
         user_id: user.id,
