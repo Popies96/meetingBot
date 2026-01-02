@@ -28,10 +28,10 @@ function ActionItemRow({
     const hasConnectedIntegrations = integrations.length > 0
     return (
         <div className='group relative'>
-            <div className='flex items-start gap-3'>
+            <div className='flex items-start gap-2'>
                 <div className='w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0'></div>
 
-                <p className='flex-1 text-sm leading-relaxed text-foreground'>
+                <p className='flex-2 text-sm  leading text-foreground'>
                     {item.text}
                 </p>
 
@@ -42,7 +42,7 @@ function ActionItemRow({
                                 onClick={() => addToIntegration(integrations[0].platform, item)}
                                 disabled={loading[`${integrations[0].platform}-${item.id}`]}
                                 size='sm'
-                                className='px-3 py-1 text-xs flex items-center gap-1'
+                                className='px-5 py-1 text-xs  items-center gap-1'
 
                             >
                                 {loading[`${integrations[0].platform}-${item.id}`] ? (
@@ -107,8 +107,9 @@ function ActionItemRow({
                 <Button
                     variant='ghost'
                     size='icon'
+                    color='red'
                     onClick={() => handleDeleteItem(item.id)}
-                    className='opacity-0 group-hover:opacity-100 p-1 hover:bg-destructive/20 text-destructive rounded transition-all cursor-pointer'
+                    className=' opacity-5 group-hover:opacity-100 p-1 hover:bg-destructive/20 text-destructive rounded transition-all cursor-pointer'
                 >
                     <Trash2 className='h-4 w-4' />
 
