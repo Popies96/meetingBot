@@ -3,9 +3,10 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, BookOpen, User, Filter, X } from "lucide-react";
+import { Search, BookOpen, User, Filter, X, Calendar, Clock } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   Popover,
   PopoverContent,
@@ -16,6 +17,7 @@ import { useSearch } from "@/app/contexts/SearchContext";
 
 export function NavBar() {
     const { user } = useUser()
+    const router = useRouter()
     const {
         searchQuery,
         startDate,
@@ -33,6 +35,8 @@ export function NavBar() {
     } = useSearch()
     const [showFilters, setShowFilters] = useState(false)
     const [debouncedQuery, setDebouncedQuery] = useState("")
+    const [showResults, setShowResults] = useState(false)
+    const searchRef = useRef<HTMLDivElement>(null)
 
     // Debounce search query
     useEffect(() => {
@@ -78,9 +82,49 @@ export function NavBar() {
         handleSearch()
     }, [handleSearch])
 
+    // Show results when there are search results
+    useEffect(() => {
+        if (searchResults.length > 0) {
+            setShowResults(true)
+        }
+    }, [searchResults])
+
+    // Close results when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+                setShowResults(false)
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [])
+
     const handleClearFilters = () => {
         clearSearch()
         setSearchResults([])
+        setShowResults(false)
+    }
+
+    const handleResultClick = (meetingId: string) => {
+        router.push(`/meeting/${meetingId}`)
+        setShowResults(false)
+        setSearchQuery('')
+    }
+
+    const formatDate = (dateString: string) => {
+        return new Date(dateString).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        })
+    }
+
+    const formatTime = (dateString: string) => {
+        return new Date(dateString).toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit'
+        })
     }
 
     return (
@@ -91,7 +135,7 @@ export function NavBar() {
             </div>
 
             {/* Center Section - Search with Filter */}
-            <div className="flex-1 max-w-md relative flex items-center gap-2">
+            <div className="flex-1 max-w-md relative flex items-center gap-2" ref={searchRef}>
                 <div className="relative flex-1 flex items-center gap-2">
                     <div className="relative flex-1">
                         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -99,6 +143,7 @@ export function NavBar() {
                             placeholder="Search meetings by name..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
+                            onFocus={() => searchResults.length > 0 && setShowResults(true)}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     e.preventDefault()
@@ -110,6 +155,54 @@ export function NavBar() {
                     </div>
                    
                 </div>
+
+                {/* Search Results Dropdown */}
+                {showResults && searchResults.length > 0 && (
+                    <div className="absolute top-full left-0 right-12 mt-2 bg-card border border-border rounded-lg shadow-lg max-h-96 overflow-y-auto z-50">
+                        <div className="p-2">
+                            <div className="text-xs text-muted-foreground px-3 py-2 font-medium">
+                                {searchResults.length} {searchResults.length === 1 ? 'result' : 'results'} found
+                            </div>
+                            {searchResults.map((meeting: any) => (
+                                <button
+                                    key={meeting.id}
+                                    onClick={() => handleResultClick(meeting.id)}
+                                    className="w-full text-left px-3 py-3 rounded-md hover:bg-muted transition-colors border-b border-border last:border-0"
+                                >
+                                    <div className="flex flex-col gap-1">
+                                        <div className="font-medium text-sm text-foreground truncate">
+                                            {meeting.title}
+                                        </div>
+                                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                                            <span className="flex items-center gap-1">
+                                                <Calendar className="h-3 w-3" />
+                                                {formatDate(meeting.startTime)}
+                                            </span>
+                                            <span className="flex items-center gap-1">
+                                                <Clock className="h-3 w-3" />
+                                                {formatTime(meeting.startTime)}
+                                            </span>
+                                        </div>
+                                        {meeting.description && (
+                                            <div className="text-xs text-muted-foreground truncate">
+                                                {meeting.description}
+                                            </div>
+                                        )}
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* No Results Message */}
+                {showResults && searchResults.length === 0 && !isSearching && (debouncedQuery || startDate || endDate || attendeeEmail) && (
+                    <div className="absolute top-full left-0 right-12 mt-2 bg-card border border-border rounded-lg shadow-lg z-50">
+                        <div className="p-4 text-center text-sm text-muted-foreground">
+                            No meetings found
+                        </div>
+                    </div>
+                )}
 
                 {/* Filter Button Beside Search */}
                 <Popover open={showFilters} onOpenChange={setShowFilters}>

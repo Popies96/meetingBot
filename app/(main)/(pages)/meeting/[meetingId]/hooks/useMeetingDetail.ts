@@ -3,6 +3,29 @@ import { useAuth } from "@clerk/nextjs";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
+const serializeTranscript = (transcript: any): string => {
+  if (!transcript) return "";
+  if (typeof transcript === "string") return transcript;
+
+  if (Array.isArray(transcript)) {
+    return transcript
+      .map((segment: any) => {
+        const speaker = segment?.speaker ? `${segment.speaker}: ` : "";
+        const words = Array.isArray(segment?.words)
+          ? segment.words
+              .map((w: any) => w?.word)
+              .filter(Boolean)
+              .join(" ")
+          : "";
+        return `${speaker}${words}`.trim();
+      })
+      .filter(Boolean)
+      .join("\n\n");
+  }
+
+  return JSON.stringify(transcript);
+};
+
 export interface MeetingData {
   id: string;
   title: string;
@@ -22,7 +45,8 @@ export interface MeetingData {
   emailSentAt?: string;
   userId?: string;
   user?: {
-    name?: string;
+    firstName?: string;
+    LastName?: string;
     email?: string;
   };
   ragProcessed?: boolean;
@@ -43,6 +67,12 @@ export function useMeetingDetail() {
 
   const [meetingData, setMeetingData] = useState<MeetingData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [translatedContent, setTranslatedContent] = useState<{
+    summary?: string;
+    transcript?: any;
+  }>({});
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   const chat = useChatCore({
     apiEndpoint: "/api/rag/chat-meeting",
@@ -57,6 +87,58 @@ export function useMeetingDetail() {
       return;
     }
     await chat.handleSendMessage();
+  };
+
+  const serializeTranscript = (transcript: any): string => {
+    if (!transcript) return "";
+    if (typeof transcript === "string") return transcript;
+
+    if (Array.isArray(transcript)) {
+      return transcript
+        .map((segment: any) => {
+          const speaker = segment?.speaker ? `${segment.speaker}: ` : "";
+          const words = Array.isArray(segment?.words)
+            ? segment.words
+                .map((w: any) => w?.word)
+                .filter(Boolean)
+                .join(" ")
+            : "";
+          return `${speaker}${words}`.trim();
+        })
+        .filter(Boolean)
+        .join("\n\n");
+    }
+
+    return JSON.stringify(transcript);
+  };
+
+  const getSegmentWordsText = (segment: any): string => {
+    if (!segment?.words) return "";
+    return segment.words
+      .map((w: any) => w?.word)
+      .filter(Boolean)
+      .join(" ");
+  };
+
+  const translateText = async (text: string, languageCode: string) => {
+    const response = await fetch("/api/meetings/translate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        text,
+        targetLanguage: languageCode,
+        meetingId,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Translation failed");
+    }
+
+    const data = await response.json();
+    return data.translatedText as string;
   };
 
   const handleSuggestionClick = (suggestion: string) => {
@@ -196,14 +278,76 @@ export function useMeetingDetail() {
         ).toLocaleTimeString()} - ${new Date(
           meetingData.endTime
         ).toLocaleTimeString()}`,
-        userName: meetingData.user?.name || "User",
+        firstName: meetingData.user?.firstName || "User",
+        LastName: meetingData.user?.LastName || "User",
       }
     : {
         title: "loading...",
         date: "loading...",
         time: "loading...",
-        userName: "loading...",
+        firstName: "loading...",
+        LastName: "",
       };
+
+  const handleTranslate = async (languageCode: string) => {
+    if (languageCode === "en") {
+      setTranslatedContent({});
+      setSelectedLanguage("en");
+      return;
+    }
+
+    // Translate both summary and transcript in one go
+    if (!meetingData?.summary && !meetingData?.transcript) {
+      return;
+    }
+
+    setIsTranslating(true);
+    setSelectedLanguage(languageCode);
+
+    try {
+      const results: { [key: string]: any } = {};
+
+      if (meetingData?.summary) {
+        results.summary = await translateText(meetingData.summary, languageCode);
+      }
+
+      if (Array.isArray(meetingData?.transcript)) {
+        const translatedSegments: any[] = [];
+        for (const segment of meetingData.transcript as any[]) {
+          const segmentText = getSegmentWordsText(segment) || serializeTranscript([segment]);
+          const translated = await translateText(segmentText, languageCode);
+          const lastEnd = segment?.words?.[segment.words.length - 1]?.end ?? segment?.offset ?? 0;
+          
+          const cleanSegment = {
+            speaker: String(segment?.speaker || ""),
+            offset: Number(segment?.offset ?? 0),
+            words: [
+              {
+                word: String(translated || ""),
+                start: Number(segment?.offset ?? 0),
+                end: Number(lastEnd),
+              },
+            ],
+          };
+          
+          translatedSegments.push(cleanSegment);
+        }
+        results.transcript = translatedSegments;
+      } else if (meetingData?.transcript) {
+        results.transcript = await translateText(
+          serializeTranscript(meetingData.transcript),
+          languageCode
+        );
+      }
+
+      setTranslatedContent(results);
+    } catch (error) {
+      console.error("Translation error:", error);
+      setTranslatedContent({});
+    } finally {
+      setIsTranslating(false);
+    }
+  };
 
   return {
     meetingId,
@@ -232,5 +376,9 @@ export function useMeetingDetail() {
     addActionItem,
     displayActionItems,
     meetingInfoData,
+    translatedContent,
+    isTranslating,
+    selectedLanguage,
+    handleTranslate,
   };
 }
