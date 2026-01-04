@@ -70,19 +70,7 @@ export const MacbookScroll = ({
       ref={ref}
       className="flex min-h-[100vh] shrink-0 scale-[0.4] transform flex-col items-center justify-start py-0 [perspective:800px] sm:scale-[0.6] md:scale-[1.15] lg:scale-[1.25] md:py-40"
     >
-      <motion.h2
-        style={{
-          translateY: textTransform,
-          opacity: textOpacity,
-        }}
-        className="mb-20 text-center text-3xl font-bold text-white"
-      >
-        {title || (
-          <span>
-            This Macbook is built with Tailwindcss. <br /> No kidding.
-          </span>
-        )}
-      </motion.h2>
+      
       {/* Lid */}
       <Lid
         src={src}

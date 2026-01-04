@@ -1,7 +1,6 @@
-
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Send } from 'lucide-react'
+import { Send, X } from 'lucide-react'
 import React from 'react'
 
 interface Message {
@@ -18,6 +17,7 @@ interface ChatSidebarProps {
     onInputChange: (value: string) => void
     onSendMessage: () => void
     onSuggestionClick: (suggestion: string) => void
+    onClose?: () => void
 }
 
 function ChatSidebar({
@@ -26,7 +26,8 @@ function ChatSidebar({
     showSuggestions,
     onInputChange,
     onSendMessage,
-    onSuggestionClick
+    onSuggestionClick,
+    onClose
 }: ChatSidebarProps) {
    
     const chatSuggestions = [
@@ -36,18 +37,31 @@ function ChatSidebar({
         "Summarize the key action items from this meeting"
     ]
     return (
-        <div className='w-96 border-l border-border bg-card flex flex-col'>
+        <div className=' w-96 border-l border-border rounded-lg bg-card flex flex-col h-full shadow-2xl'>
 
-            <div className='p-4 border-b border-border'>
-                <h3 className='font-semibold text-foreground'>
-                    Meeting Assistant
-                </h3>
-                <p className='text-sm text-muted-foreground'>
-                    Ask me anything about this meeting
-                </p>
+            <div className='p-4 border-b border-border flex-shrink-0 flex items-center justify-between'>
+                <div>
+                    <h3 className='font-semibold text-foreground'>
+                        Meeting Assistant
+                    </h3>
+                    <p className='text-sm text-muted-foreground'>
+                        Ask me anything about this meeting
+                    </p>
+                </div>
+                {onClose && (
+                    <Button
+                        variant='ghost'
+                        size='icon'
+                        onClick={onClose}
+                        className='hover:bg-muted rounded-lg transition-colors flex-shrink-0'
+                        title='Close chat'
+                    >
+                        <X className='h-5 w-5' />
+                    </Button>
+                )}
             </div>
 
-            <div className='flex-1 p-4 overflow-auto space-y-4'>
+            <div className='flex-1 p-3 overflow-y-auto space-y-3 min-h-0'>
                 {messages.map((message) => (
                     <div
                         key={message.id}
@@ -75,13 +89,13 @@ function ChatSidebar({
                     </div>
                 )}
                 {showSuggestions && messages.length === 0 && (
-                    <div className='flex flex-col items-center space-y-3 mt-8'>
+                    <div className='flex flex-col items-center space-y-2 mt-18'>
                         {chatSuggestions.map((suggestion, index) => (
                             <button
                                 key={index}
                                 onClick={() => onSuggestionClick(suggestion)}
                                 
-                                className='w-4/5 rounded-lg p-4 border transition-colors text-center 
+                                className='w-4/5 rounded-lg p-3 border transition-colors text-center 
                                      bg-primary/10 text-foreground border-primary/20 hover:bg-primary/20'
                                    
                                     
@@ -96,8 +110,8 @@ function ChatSidebar({
             
             </div>
 
-            <div className='p-4 border-t border-border'>
-                <div className='flex gap-2'>
+            <div className='p-3 pt-2  border-border flex-shrink-0 lg:pb-4'>
+                <div className='flex gap-2 '>
                     <Input
                         type='text'
                         value={chatInput}

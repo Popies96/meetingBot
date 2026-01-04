@@ -7,11 +7,15 @@ import 'react-h5-audio-player/lib/styles.css';
 interface CustomAudioPlayerProps {
     recordingUrl?: string
     isOwner?: boolean
+    isChatOpen?: boolean
+    isSidebarCollapsed?: boolean
 }
 
 function CustomAudioPlayer({
     recordingUrl,
-    isOwner = true
+    isOwner = true,
+    isChatOpen = true,
+    isSidebarCollapsed = false
 }: CustomAudioPlayerProps) {
     const playerRef = useRef<any>(null)
     const [isPlaying, setIsPlaying] = useState(false)
@@ -111,13 +115,27 @@ function CustomAudioPlayer({
     }
 
 
+    const sidebarWidth = isSidebarCollapsed ? '3rem' : '16rem' // 48px collapsed, 256px expanded
+    const chatWidth = isChatOpen ? '24rem' : '0'
+    
     return (
         <div
-            className={`fixed bottom-0 bg-card border-t border-border p-3 md:p-4 ${!isOwner
-                ? 'left-0 right-0'
-                : 'left-0 right-0 lg:left-[var(--sidebar-width,16rem)] lg:right-[24rem]'
-                }`}
+            className='fixed bottom-0 left-0 right-0 bg-card border-t border-border p-3 md:p-4 z-50 transition-all duration-300'
+            style={{
+                left: '0',
+                right: '0',
+            }}
         >
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                    @media (min-width: 1024px) {
+                        .fixed.bottom-0 {
+                            left: ${isOwner ? sidebarWidth : '0'} !important;
+                            right: ${isOwner && isChatOpen ? chatWidth : '0'} !important;
+                        }
+                    }
+                `
+            }} />
             <div style={{ display: 'none' }}>
                 <AudioPlayer
                     ref={playerRef}
@@ -258,7 +276,7 @@ function CustomAudioPlayer({
                     </div>
 
                     {/* Progress Bar Row */}
-                    <div className='flex items-center gap-2'>
+                    <div className='flex items-center gap-2 z-50'>
                         <span className='text-xs text-muted-foreground min-w-[35px]'>
                             {formatTime(currentTime)}
                         </span>
@@ -278,7 +296,7 @@ function CustomAudioPlayer({
                         </span>
 
                         {/* Volume Icon with Vertical Slider */}
-                        <div className='relative'>
+                        <div className='relative z-50'>
                             <Button
                                 variant='ghost'
                                 size='icon'
@@ -297,12 +315,12 @@ function CustomAudioPlayer({
                                 <>
                                     {/* Backdrop */}
                                     <div
-                                        className='fixed inset-0 z-[60]'
+                                        className='fixed inset-0 z-[100]'
                                         onClick={() => setShowVolumeSlider(false)}
                                     />
 
                                     {/* Vertical Slider */}
-                                    <div className='absolute bottom-full right-0 mb-2 bg-card border border-border rounded-lg p-3 shadow-lg z-[70]'>
+                                    <div className='absolute bottom-full right-0 mb-2 bg-card border border-border rounded-lg p-3 shadow-lg z-[110]'>
                                         <div className='flex flex-col items-center gap-2'>
                                             <span className='text-xs text-muted-foreground font-medium'>
                                                 {Math.round(volume * 100)}%
