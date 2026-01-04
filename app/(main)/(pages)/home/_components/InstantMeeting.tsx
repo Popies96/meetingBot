@@ -11,8 +11,71 @@ function InstantMeeting() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
 
+    const normalizeUrl = (url: string) => {
+        const trimmed = url.trim()
+        if (!trimmed) return ''
+        return trimmed.startsWith('http') ? trimmed : `https://${trimmed}`
+    }
+
+    const getUrlState = () => {
+        if (!meetingUrl.trim() || !selectedPlatform) return 'empty'
+
+        const normalized = normalizeUrl(meetingUrl)
+        if (!normalized.startsWith('https://')) return 'invalid'
+
+        if (selectedPlatform === 'google-meet') {
+            const googleMeetPattern = /^https:\/\/meet\.google\.com\/[a-z0-9]{3}-[a-z0-9]{4}-[a-z0-9]{3}(?:[\/?].*)?$/i
+            return googleMeetPattern.test(normalized) ? 'valid' : 'invalid'
+        }
+
+        if (selectedPlatform === 'zoom') {
+            return normalized.includes('zoom.us') ? 'valid' : 'invalid'
+        }
+
+        if (selectedPlatform === 'microsoft') {
+            return normalized.includes('teams.microsoft.com') ? 'valid' : 'invalid'
+        }
+
+        return 'invalid'
+    }
+
+    const isValidMeetingUrl = () => getUrlState() === 'valid'
+
+    const getTitleState = () => {
+        const trimmed = meetingTitle.trim()
+        if (!trimmed) return 'empty'
+        return trimmed.length >= 3 ? 'valid' : 'invalid'
+    }
+
+    const isValidTitle = () => getTitleState() === 'valid'
+
     const handleJoinMeeting = async () => {
-        if (!selectedPlatform || !meetingUrl.trim()) return
+        if (loading) return
+
+        if (!selectedPlatform) {
+            setError('Choose a platform first')
+            return
+        }
+
+        if (!meetingUrl.trim()) {
+            setError('Meeting URL is required')
+            return
+        }
+
+        if (!isValidMeetingUrl()) {
+            setError('Enter a valid meeting URL for the selected platform')
+            return
+        }
+
+        if (!meetingTitle.trim()) {
+            setError('Meeting title is required')
+            return
+        }
+
+        if (!isValidTitle()) {
+            setError('Meeting title must be at least 3 characters')
+            return
+        }
 
         setLoading(true)
         setError('')
@@ -24,9 +87,9 @@ function InstantMeeting() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    meetingUrl: meetingUrl.trim(),
+                    meetingUrl: normalizeUrl(meetingUrl),
                     platform: selectedPlatform,
-                    title: meetingTitle.trim() || undefined,
+                    title: meetingTitle.trim(),
                     description: meetingDesc.trim() || undefined,
                 }),
             })
@@ -103,8 +166,20 @@ function InstantMeeting() {
                         placeholder='Paste meeting URL...'
                         value={meetingUrl}
                         onChange={(e) => setMeetingUrl(e.target.value)}
-                        className='w-full h-9 text-sm'
+                        className={`w-full h-9 text-sm ${
+                            getUrlState() === 'valid'
+                                ? 'border-green-500 focus-visible:ring-green-500'
+                                : getUrlState() === 'invalid' && meetingUrl.trim()
+                                    ? 'border-destructive focus-visible:ring-destructive'
+                                    : ''
+                        }`}
                     />
+                    {getUrlState() === 'invalid' && meetingUrl.trim() && (
+                        <p className='mt-1 text-xs text-destructive'>Enter a valid meeting URL for the selected platform</p>
+                    )}
+                    {getUrlState() === 'valid' && (
+                        <p className='mt-1 text-xs text-green-600'>Looks good!</p>
+                    )}
                 </div>
             )}
 
@@ -112,11 +187,23 @@ function InstantMeeting() {
             {selectedPlatform && (
                 <div className='mb-2'>
                     <Input
-                        placeholder='Meeting name (optional)...'
+                        placeholder='Meeting name*...'
                         value={meetingTitle}
                         onChange={(e) => setMeetingTitle(e.target.value)}
-                        className='w-full h-9 text-sm'
+                        className={`w-full h-9 text-sm ${
+                            getTitleState() === 'valid'
+                                ? 'border-green-500 focus-visible:ring-green-500'
+                                : getTitleState() === 'invalid'
+                                    ? 'border-destructive focus-visible:ring-destructive'
+                                    : ''
+                        }`}
                     />
+                    {getTitleState() === 'invalid' && (
+                        <p className='mt-1 text-xs text-destructive'>Title must be at least 3 characters</p>
+                    )}
+                    {getTitleState() === 'valid' && (
+                        <p className='mt-1 text-xs text-green-600'>Looks good!</p>
+                    )}
                 </div>
             )}
 
@@ -142,7 +229,13 @@ function InstantMeeting() {
             {selectedPlatform && (
                 <Button
                     onClick={handleJoinMeeting}
-                    disabled={loading || !meetingUrl.trim()}
+                    disabled={
+                        loading ||
+                        !meetingUrl.trim() ||
+                        !isValidMeetingUrl() ||
+                        !meetingTitle.trim() ||
+                        !isValidTitle()
+                    }
                     className='w-full h-9 text-sm cursor-pointer'
                 >
                     {loading ? (

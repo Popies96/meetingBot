@@ -94,12 +94,21 @@ function PastMeetings({
                                 />
                             )}
                         </div>
-                        <span className='text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full'>
-                            Completed
-                        </span>
+                        {meeting.transcriptReady ? (
+                            <span className='text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full'>
+                                Completed
+                            </span>
+                        ) : (
+                            <span className='text-xs bg-amber-500/20 text-amber-500 px-2 py-1 rounded-full'>
+                                Processing
+                            </span>
+                        )}
                     </div>
                     {meeting.description && (
-                        <p className='text-sm text-muted-foreground mb-3'>{meeting.description}</p>
+                        <p className='text-sm text-muted-foreground mb-1'>{meeting.description}</p>
+                    )}
+                    {!meeting.transcriptReady && (
+                        <p className='text-xs text-muted-foreground mb-3'>Transcript and summary are still processing.</p>
                     )}
 
                     <div className='text-sm text-muted-foreground mb-3'>
