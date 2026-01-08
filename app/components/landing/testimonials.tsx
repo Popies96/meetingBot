@@ -54,37 +54,37 @@ const testimonials = [
 
 function TestimonialsSection() {
     return (
-        <section className="py-20 bg-black relative overflow-hidden">
+        <section className="pb-20 bg-black relative overflow-hidden">
             {/* Background gradient effects */}
             <div className="absolute inset-0  pointer-events-none"></div>
             
             <div className="max-w-7xl mx-auto px-4 lg:px-8 relative z-10">
                 <div className="grid lg:grid-cols-3  gap-8 items-start">
                     {/* Left side - Header */}
-                    <div className="lg:col-span-1 mt-40">
-                        <div className="lg:sticky lg:top-8">
-                            
-                            <h2 className=" font-bold mb-4 text-3xl">
-                             <AnimatedGradientText>Testimonial</AnimatedGradientText>   
-                            </h2>
-                            
-                            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
-                                What our users says about us
-                            </h2>
-                            <p className="text-gray-500 text-base mb-8">
-                                knowledge, expertise, advices & confidence
-                            </p>
-                            <button className="text-blue-500 font-semibold flex items-center gap-2 hover:gap-3 transition-all group text-sm">
-                                View all testimonials
-                                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+                   <div className="lg:col-span-1 mt-8 lg:mt-40">
+    <div className="lg:sticky lg:top-8 text-center lg:text-left">
+        
+        <h2 className="font-bold mb-4 text-3xl">
+            <AnimatedGradientText>Testimonials</AnimatedGradientText>   
+        </h2>
+        
+        <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+            What our users says about us
+        </h2>
+        <p className="text-gray-500 text-base mb-8">
+            knowledge, expertise, advices & confidence
+        </p>
+        <button className="text-blue-500 font-semibold flex items-center gap-2 hover:gap-3 transition-all group text-sm mx-auto lg:mx-0">
+            View all testimonials
+            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+    </div>
+</div>
 
                     {/* Middle - First testimonial */}
-                    <div className="lg:col-span-1 mt-40">
+                    <div className="lg:col-span-1 mt-8 lg:mt-40">
                         <div className="bg-gray-900/40 rounded-2xl p-8 border border-gray-800/50 hover:border-gray-700 transition-all duration-300 h-full flex flex-col">
                             {/* Rating */}
                             <div className="flex gap-1 mb-6">

@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useMeetingDetail } from './hooks/useMeetingDetail'
 import MeetingHeader from './_components/MeetingHeader'
 import MeetingInfo from './_components/MeetingInfo'
@@ -10,8 +10,22 @@ import ActionItems from './_components/action-items/ActionItems'
 import TranscriptDisplay from './_components/TranscriptDisplay'
 import ChatSidebar from './_components/ChatSidebar'
 import CustomAudioPlayer from './_components/AudioPlayer'
+import { MessageCircle, X } from 'lucide-react'
+import { useSidebar } from '@/components/ui/sidebar'
 
 function MeetingDetail() {
+    const [isChatOpen, setIsChatOpen] = useState(false)
+    const [isDesktopChatOpen, setIsDesktopChatOpen] = useState(true)
+    
+    // Try to get sidebar state, fallback if not in provider
+    let isSidebarCollapsed = false
+    try {
+        const sidebar = useSidebar()
+        isSidebarCollapsed = sidebar.state === 'collapsed'
+    } catch (error) {
+        // Not within SidebarProvider, use default
+        isSidebarCollapsed = false
+    }
 
     const {
         meetingId,
@@ -49,51 +63,56 @@ function MeetingDetail() {
                 isOwner={isOwner}
                 isLoading={!userChecked}
             />
-            <div className='flex h-[calc(100vh-73px)]'>
-                <div className={`flex-1 p-6 overflow-auto pb-24 ${!userChecked
-                    ? ''
-                    : !isOwner
-                        ? 'max-w-4xl mx-auto'
-                        : ''
-                    }`}>
+            <div className='flex h-[calc(100vh-73px)] relative overflow-hidden'>
+                <div 
+                    className={`flex-1 p-4 md:p-6 overflow-y-auto pb-24 ${!userChecked
+                        ? ''
+                        : !isOwner
+                            ? 'max-w-4xl mx-auto'
+                            : ''
+                    }`}
+                    style={{
+                        scrollbarWidth: 'none',
+                        msOverflowStyle: 'none',
+                    }}
+                >
+                    <style dangerouslySetInnerHTML={{
+                        __html: `
+                            .flex-1::-webkit-scrollbar {
+                                display: none;
+                            }
+                        `
+                    }} />
                     <MeetingInfo meetingData={meetingInfoData} />
 
                     <div className='mb-8'>
-                        <div className='flex border-b border-border items-center justify-between'>
-                            <div className='flex'>
-                                <Button
-                                    variant='ghost'
-                                    onClick={() => setActiveTab('summary')}
-                                    className={`px-4 py-2 text-sm font-medium border-b-2 rounded-none shadow-none transition-colors
-                                    ${activeTab === 'summary'
-                                            ? 'border-primary text-primary'
-                                            : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/50'
-                                        }`}
-                                    style={{ boxShadow: 'none' }}
-                                    type='button'
-                                >
-                                    Summary
-                                </Button>
-                                <Button
-                                    variant='ghost'
-                                    onClick={() => setActiveTab('transcript')}
-                                    className={`px-4 py-2 text-sm font-medium border-b-2 rounded-none shadow-none transition-colors
-                                    ${activeTab === 'transcript'
-                                            ? 'border-primary text-primary'
-                                            : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/50'
-                                        }`}
-                                    style={{ boxShadow: 'none' }}
-                                    type='button'
-                                >
-                                    Transcript
-                                </Button>
-                            </div>
-                            <div className='pb-2'>
-                                <LanguageSelector 
-                                    onLanguageSelect={handleTranslate}
-                                    isTranslating={isTranslating}
-                                />
-                            </div>
+                        <div className='flex border-b border-border'>
+                            <Button
+                                variant='ghost'
+                                onClick={() => setActiveTab('summary')}
+                                className={`px-4 py-2 text-sm font-medium border-b-2 rounded-none shadow-none transition-colors
+                                ${activeTab === 'summary'
+                                        ? 'border-primary text-primary'
+                                        : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/50'
+                                    }`}
+                                style={{ boxShadow: 'none' }}
+                                type='button'
+                            >
+                                Summary
+                            </Button>
+                            <Button
+                                variant='ghost'
+                                onClick={() => setActiveTab('transcript')}
+                                className={`px-4 py-2 text-sm font-medium border-b-2 rounded-none shadow-none transition-colors
+                                ${activeTab === 'transcript'
+                                        ? 'border-primary text-primary'
+                                        : 'border-transparent text-muted-foreground hover:border-muted-foreground/50'
+                                    }`}
+                                style={{ boxShadow: 'none' }}
+                                type='button'
+                            >
+                                Transcript
+                            </Button>
                         </div>
 
                         {isTranslating && (
@@ -114,7 +133,7 @@ function MeetingDetail() {
                                     ) : meetingData?.processed ? (
                                         <div className='space-y-6'>
                                             {meetingData.summary && (
-                                                <div className='bg-card border border-border rounded-lg p-6'>
+                                                <div className='bg-card border border-border rounded-lg p-4 md:p-6'>
                                                     <h3 className='text-lg font-semibold text-foreground mb-3'>Meeting Summary</h3>
                                                     <p className='text-muted-foreground leading-relaxed'>
                                                         {translatedContent.summary || meetingData.summary}
@@ -123,7 +142,7 @@ function MeetingDetail() {
                                             )}
 
                                             {!userChecked ? (
-                                                <div className='bg-card border border-border rounded-lg p-6'>
+                                                <div className='bg-card border border-border rounded-lg p-4 md:p-6'>
                                                     <div className='animate-pulse'>
                                                         <div className='h-4 bg-muted rounded w-1/4 mb-4'></div>
                                                         <div className='space-y-2'>
@@ -144,7 +163,7 @@ function MeetingDetail() {
                                                     )}
 
                                                     {!isOwner && displayActionItems.length > 0 && (
-                                                        <div className='bg-card rounded-lg p-6 border border-border'>
+                                                        <div className='bg-card rounded-lg p-4 md:p-6 border border-border'>
                                                             <h3 className='text-lg font-semibold text-foreground mb-4'>
                                                                 Action Items
                                                             </h3>
@@ -165,7 +184,7 @@ function MeetingDetail() {
                                             )}
                                         </div>
                                     ) : (
-                                        <div className='bg-card border border-border rounded-lg p-6 text-center'>
+                                        <div className='bg-card border border-border rounded-lg p-4 md:p-6 text-center'>
                                             <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4'></div>
                                             <p className='text-muted-foreground'>Processing meeting with AI..</p>
                                             <p className='text-sm text-muted-foreground mt-2'>You'll receive an email when ready</p>
@@ -178,7 +197,7 @@ function MeetingDetail() {
                             {activeTab === 'transcript' && (
                                 <div>
                                     {loading ? (
-                                        <div className='bg-card border border-border rounded-lg p-6 text-center'>
+                                        <div className='bg-card border border-border rounded-lg p-4 md:p-6 text-center'>
                                             <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4'></div>
                                             <p className='text-muted-foreground'>Loading meeting data..</p>
                                         </div>
@@ -197,7 +216,7 @@ function MeetingDetail() {
                                             )}
                                         </div>
                                     ) : (
-                                        <div className='bg-card rounded-lg p-6 border border-border text-center'>
+                                        <div className='bg-card rounded-lg p-4 md:p-6 border-border text-center'>
                                             <p className='text-muted-foreground'>No transcript avaialable</p>
                                         </div>
                                     )}
@@ -210,33 +229,90 @@ function MeetingDetail() {
 
                 </div>
 
-                {!userChecked ? (
-                    <div className='w-90 border-l border-border p-4 bg-card'>
-                        <div className='animate-pulse'>
-                            <div className='h-4 bg-muted rounded w-1/2 mb-4'></div>
-                            <div className='space-y-3'>
-                                <div className='h-8 bg-muted rounded'></div>
-                                <div className='h-8 bg-muted rounded'></div>
-                                <div className='h-8 bg-muted rounded'></div>
+                {/* Desktop ChatSidebar - Sticky positioned */}
+                {userChecked && isOwner && (
+                    <div className={`hidden lg:flex flex-col transition-all duration-300 sticky top-0 self-start bg-card ${isDesktopChatOpen ? 'w-96' : 'w-0 overflow-hidden'}`}>
+                        {isDesktopChatOpen && (
+                            <div className='h-[calc(106vh-165px)] overflow-hidden'>
+                                <ChatSidebar
+                                    messages={messages}
+                                    chatInput={chatInput}
+                                    showSuggestions={showSuggestions}
+                                    onInputChange={handleInputChange}
+                                    onSendMessage={handleSendMessage}
+                                    onSuggestionClick={handleSuggestionClick}
+                                    onClose={() => setIsDesktopChatOpen(false)}
+                                />
                             </div>
-                        </div>
+                        )}
                     </div>
-                ) : isOwner && (
-                    <ChatSidebar
-                        messages={messages}
-                        chatInput={chatInput}
-                        showSuggestions={showSuggestions}
-                        onInputChange={handleInputChange}
-                        onSendMessage={handleSendMessage}
-                        onSuggestionClick={handleSuggestionClick}
-                    />
                 )}
 
             </div>
 
+            {/* Floating Chat Toggle Button - Right Edge (Desktop only) */}
+            {userChecked && isOwner && !isDesktopChatOpen && (
+                <button
+                    onClick={() => setIsDesktopChatOpen(true)}
+                    className='hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 bg-primary/90 hover:bg-primary text-primary-foreground rounded-l-lg p-3 shadow-lg z-30 transition-all duration-300'
+                    aria-label='Open chat'
+                    title='Open chat'
+                >
+                    <MessageCircle className='w-5 h-5' />
+                </button>
+            )}
+
+            {/* Mobile Chat Toggle Button */}
+            {userChecked && isOwner && (
+                <button
+                    onClick={() => setIsChatOpen(true)}
+                    className='lg:hidden fixed bottom-40 right-6 z-10 bg-primary text-primary-foreground rounded-full p-4 shadow-lg hover:bg-primary/90 transition-colors'
+                    aria-label='Open chat'
+                >
+                    <MessageCircle className='w-6 h-6' />
+                </button>
+            )}
+
+            {/* Mobile ChatSidebar Overlay */}
+            {isChatOpen && (
+                <>
+                    {/* Backdrop */}
+                    <div
+                        className='lg:hidden fixed inset-0 bg-black/50 z-40'
+                        onClick={() => setIsChatOpen(false)}
+                    />
+
+                    {/* Sliding Chat Panel */}
+                    <div className='lg:hidden fixed inset-y-0 right-0 w-full sm:w-96 z-50 bg-card border-l border-border shadow-xl transform transition-transform duration-300 ease-in-out'>
+                        <div className='flex items-center justify-between p-4 border-b border-border'>
+                            <h2 className='text-lg font-semibold'>Chat</h2>
+                            <button
+                                onClick={() => setIsChatOpen(false)}
+                                className='p-2 hover:bg-muted rounded-lg transition-colors'
+                                aria-label='Close chat'
+                            >
+                                <X className='w-5 h-5' />
+                            </button>
+                        </div>
+                        <div className='h-[calc(100vh-73px)] pb-36'>
+                            <ChatSidebar
+                                messages={messages}
+                                chatInput={chatInput}
+                                showSuggestions={showSuggestions}
+                                onInputChange={handleInputChange}
+                                onSendMessage={handleSendMessage}
+                                onSuggestionClick={handleSuggestionClick}
+                            />
+                        </div>
+                    </div>
+                </>
+            )}
+
             <CustomAudioPlayer
                 recordingUrl={meetingData?.recordingUrl}
                 isOwner={isOwner}
+                isChatOpen={isDesktopChatOpen}
+                isSidebarCollapsed={isSidebarCollapsed}
             />
         </div>
     )

@@ -108,7 +108,7 @@ function Pricing() {
 
             </div>
 
-            <div className='mt-12 grid grid-cols-3 gap-6 items-center'>
+            <div className='mt-12 grid md:grid-cols-3 sm:grid-cols-1 gap-6 items-center'>
                 {plans.map((plan) => {
                     const isLoading = loading === plan.priceId
 

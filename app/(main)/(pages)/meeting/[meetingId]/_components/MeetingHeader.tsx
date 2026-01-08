@@ -126,18 +126,18 @@ function MeetingHeader({
         }
     }
     return (
-        <div className='bg-card border-b border-border px-6 py-3.5 flex justify-between items-center'>
-            <h1 className='text-xl font-semibold text-foreground'>
+        <div className='bg-card border-b border-border px-4 md:px-6 py-3.5 flex justify-between items-center'>
+            <h1 className='text-lg md:text-xl font-semibold text-foreground truncate'>
                 {title}
             </h1>
 
             {isLoading ? (
                 <div className='flex items-center gap-2 text-sm text-muted-foreground'>
                     <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-muted-foreground'></div>
-                    Loading...
+                    <span className='hidden sm:inline'>Loading...</span>
                 </div>
             ) : isOwner ? (
-                <div className='flex gap-3'>
+                <div className='flex gap-2 md:gap-3'>
                     <Button
                         onClick={handlePostToSlack}
                         disabled={isPosting || !meetingId}
@@ -147,25 +147,27 @@ function MeetingHeader({
                         <img
                             src="/slack.png"
                             alt="Slack"
-                            className='w-4 h-4 mr-2'
+                            className='w-4 h-4 md:mr-2'
                         />
-                        {isPosting ? 'Posting...' : 'Post to Slack'}
+                        <span className='hidden md:inline'>
+                            {isPosting ? 'Posting...' : 'Post to Slack'}
+                        </span>
                     </Button>
 
                     <Button
                         onClick={handleShare}
                         variant='outline'
-                        className='flex items-center gap-2 px-4 py-2 bg-muted rounded-lg hover:bg-muted/80 transition-colors text-foreground text-sm cursor-pointer'
+                        className='flex items-center gap-2 px-3 md:px-4 py-2 bg-muted rounded-lg hover:bg-muted/80 transition-colors text-foreground text-sm cursor-pointer'
                     >
                         {copied ? (
                             <>
                                 <Check className='h-4 w-4' />
-                                Copied!
+                                <span className='hidden md:inline'>Copied!</span>
                             </>
                         ) : (
                             <>
                                 <Share2 className='h-4 w-4' />
-                                Share
+                                <span className='hidden md:inline'>Share</span>
                             </>
                         )}
 
@@ -174,17 +176,18 @@ function MeetingHeader({
                     <Button
                         onClick={handleDelete}
                         disabled={isDeleting}
-                        className='flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive text-white hover:bg-destructive/90 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
+                        className='flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg bg-destructive text-white hover:bg-destructive/90 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
                     >
                         <Trash2 className='h-4 w-4' />
-                        {isDeleting ? 'Deleting...' : 'Delete'}
-
+                        <span className='hidden md:inline'>
+                            {isDeleting ? 'Deleting...' : 'Delete'}
+                        </span>
                     </Button>
                 </div>
             ) : (
                 <div className='flex items-center gap-2 text-sm text-muted-foreground'>
                     <Eye className='w-4 h-4' />
-                    Viewing shared meeting
+                    <span className='hidden sm:inline'>Viewing shared meeting</span>
                 </div>
             )}
         </div>

@@ -71,19 +71,19 @@ function StatsSection() {
                     {/* imin ---> issar */}
                     <div className='flex whitespace-nowrap animate-scroll-left'>
                         <span className='text-4xl md:text-6xl font-bold text-white mx-8'>
-                            Start in seconds • Start in seconds • Start in seconds • Start in seconds •
+                            Start in seconds <AnimatedGradientText><AnimatedGradientText>•</AnimatedGradientText></AnimatedGradientText> Start in seconds <AnimatedGradientText><AnimatedGradientText>•</AnimatedGradientText></AnimatedGradientText> Start in seconds <AnimatedGradientText><AnimatedGradientText>•</AnimatedGradientText></AnimatedGradientText> Start in seconds <AnimatedGradientText><AnimatedGradientText>•</AnimatedGradientText></AnimatedGradientText>
                         </span>
                         <span className='text-4xl md:text-6xl font-bold text-white mx-8'>
-                           Start in seconds • Start in seconds • Start in seconds • Start in seconds •
+                           Start in seconds <AnimatedGradientText><AnimatedGradientText>•</AnimatedGradientText></AnimatedGradientText> Start in seconds <AnimatedGradientText>•</AnimatedGradientText> Start in seconds <AnimatedGradientText>•</AnimatedGradientText> Start in seconds <AnimatedGradientText>•</AnimatedGradientText>
                         </span>
                     </div>
                     {/* issar --->  imin */}
                     <div className='flex whitespace-nowrap animate-scroll-right'>
                         <span className='text-4xl md:text-6xl font-bold text-white mx-8'>
-                            Start in seconds • Start in seconds • Start in seconds • Start in seconds •
+                            Start in seconds <AnimatedGradientText>•</AnimatedGradientText> Start in seconds <AnimatedGradientText>•</AnimatedGradientText> Start in seconds <AnimatedGradientText>•</AnimatedGradientText> Start in seconds <AnimatedGradientText>•</AnimatedGradientText>
                         </span>
                         <span className='text-4xl md:text-6xl font-bold text-white mx-8'>
-                            Start in seconds • Start in seconds • Start in seconds • Start in seconds •
+                            Start in seconds <AnimatedGradientText>•</AnimatedGradientText> Start in seconds <AnimatedGradientText>•</AnimatedGradientText> Start in seconds <AnimatedGradientText>•</AnimatedGradientText> Start in seconds <AnimatedGradientText>•</AnimatedGradientText>
                         </span>
                     </div>
                 </div>

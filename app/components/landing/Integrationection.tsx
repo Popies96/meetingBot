@@ -1,24 +1,21 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
+import { PinContainer } from "@/components/ui/3d-pin";
 
 const integrations = [
-    { name: "Slack", image: "slack.png", screenshot: "ss1.png" },
-    { name: "Asana", image: "asana.png", screenshot: "ss2.png" },
-    { name: "Jira", image: "jira.png", screenshot: "ss3.png" },
-    { name: "Trello", image: "trello.png", screenshot: "ss4.png" },
-    { name: "Google Calendar", image: "gcal.png", screenshot: "ss5.png" }
+    { name: "Slack", image: "slack.png" },
+    { name: "Asana", image: "asana.png" },
+    { name: "Jira", image: "jira.png" },
+    { name: "Trello", image: "trello.png" },
+    { name: "Google Calendar", image: "gcal.png" }
 ];
 
 function IntegrationsSection() {
-    const [selected, setSelected] = useState(null);
-
     return (
         <section className="py-20 bg-black">
-            <div className="max-w-6xl mx-auto px-4">
-
-             
+            <div className="max-w-7xl mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                         Seamless{" "}
@@ -32,76 +29,51 @@ function IntegrationsSection() {
                         Connect with the tools you already use and love
                     </p>
                 </div>
-                {!selected && (
-                    <div className="flex justify-center flex-wrap gap-10">
-                        {integrations.map((integration, i) => (
-                            <button
-                                key={i}
-                                onClick={() => setSelected(integration)}
-                                className="text-center group transition-transform hover:scale-105"
+
+                {/* Desktop view - horizontal with pin animation */}
+                <div className="hidden md:flex justify-center items-center gap-6 flex-nowrap">
+                    {integrations.map((integration, i) => (
+                        <div key={i} className="h-[15rem] flex items-center justify-center flex-shrink-0">
+                            <PinContainer
+                                title={integration.name}
+                                href="#"
                             >
-                                <div className="w-20 h-20 mx-auto mb-3 bg-white/5 p-3 rounded-xl border border-gray-800 group-hover:border-gray-600 transition-colors">
-                                    <Image
-                                        src={`/${integration.image}`}
-                                        alt={integration.name}
-                                        width={80}
-                                        height={80}
-                                        className="w-full h-full object-contain"
-                                    />
+                                <div className="flex basis-full flex-col p-2 tracking-tight text-slate-100/50 w-[6rem] h-[6rem]">
+                                    <div className="flex flex-1 w-full rounded-lg bg-white/5 border border-gray-800 p-3 items-center justify-center">
+                                        <Image
+                                            src={`/${integration.image}`}
+                                            alt={integration.name}
+                                            width={60}
+                                            height={60}
+                                            className="w-12 h-12 object-contain"
+                                        />
+                                    </div>
                                 </div>
-                                <p className="text-white text-sm">{integration.name}</p>
-                            </button>
-                        ))}
-                    </div>
-                )}
-                {selected && (
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-10 lg:items-center">
-                        <div className="flex flex-col gap-6 items-start">
-
-                            {integrations
-                                .filter((i) => i.name !== selected.name)
-                                .map((integration, i) => (
-                                    <button
-                                        key={i}
-                                        onClick={() => setSelected(integration)}
-                                        className="flex items-center gap-3 group transition-transform hover:translate-x-1"
-                                    >
-                                        <div className="w-14 h-14 bg-white/5 rounded-xl border border-gray-800 group-hover:border-gray-600 p-2 transition-colors">
-                                            <Image
-                                                src={`/${integration.image}`}
-                                                alt={integration.name}
-                                                width={60}
-                                                height={60}
-                                                className="w-full h-full object-contain"
-                                            />
-                                        </div>
-                                        <p className="text-white text-sm">{integration.name}</p>
-                                    </button>
-                                ))}
-
-                            <button
-                                onClick={() => setSelected(null)}
-                                className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-gray-800 hover:border-gray-600 rounded-lg text-gray-300 hover:text-white text-sm mt-4 transition-all"
-                            >
-                                ← Back to all integrations
-                            </button>
+                            </PinContainer>
                         </div>
+                    ))}
+                </div>
 
-                        <div className="lg:col-span-2 flex flex-col gap-4">
-                            <h3 className="text-2xl font-semibold text-white">{selected.name}</h3>
-                            <div className="w-full">
+                {/* Mobile view - vertical cards (non-scrollable) */}
+                <div className="md:hidden flex flex-col gap-6 max-w-sm mx-auto px-2">
+                    {integrations.map((integration, i) => (
+                        <div
+                            key={i}
+                            className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-gray-800"
+                        >
+                            <div className="w-16 h-16 bg-white/5 rounded-lg border border-gray-700 p-3 flex items-center justify-center flex-shrink-0">
                                 <Image
-                                    src={`/${selected.screenshot}`}
-                                    alt={`${selected.name} integration screenshot`}
-                                    width={1200}
-                                    height={800}
-                                    className="rounded-xl border border-gray-700 w-full h-auto shadow-2xl"
+                                    src={`/${integration.image}`}
+                                    alt={integration.name}
+                                    width={60}
+                                    height={60}
+                                    className="w-full h-full object-contain"
                                 />
                             </div>
+                            <p className="text-white text-base font-medium">{integration.name}</p>
                         </div>
-
-                    </div>
-                )}
+                    ))}
+                </div>
             </div>
         </section>
     );
