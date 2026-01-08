@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const { meetingUrl, platform } = await request.json();
+    const { meetingUrl, platform, title, description } = await request.json();
 
     if (!meetingUrl || !platform) {
       return NextResponse.json(
@@ -47,11 +47,14 @@ export async function POST(request: NextRequest) {
 
     // Create a meeting record with all necessary fields
     const now = new Date();
+    const meetingTitle = title || `Instant ${platform === 'google-meet' ? 'Google Meet' : platform === 'zoom' ? 'Zoom' : 'Microsoft Teams'} Meeting`;
+    const meetingDescription = description || `Instant meeting joined at ${now.toLocaleString()}`;
+    
     const meeting = await prisma.meeting.create({
       data: {
         userId: user.id,
-        title: `Instant ${platform === 'google-meet' ? 'Google Meet' : 'Zoom'} Meeting`,
-        description: `Instant meeting joined at ${now.toLocaleString()}`,
+        title: meetingTitle,
+        description: meetingDescription,
         meetingUrl: normalizedUrl,
         startTime: now,
         endTime: new Date(now.getTime() + 60 * 60 * 1000), // 1 hour default

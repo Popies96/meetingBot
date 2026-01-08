@@ -52,7 +52,7 @@ export default function TranscriptDisplay({ transcript }: TranscriptDisplayProps
                 Meeting transcript
             </h3>
 
-            <div className="space-y-4 max-h-96 overflow-y-auto">
+            <div className="space-y-4">
                 {transcript.map((segment, index) => (
                     <div key={index} className="pb-4 border-b border-border last:border-b-0">
                         <div className="flex items-center gap-3 mb-2">

@@ -27,7 +27,7 @@ export default function HeroSection() {
                             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                                 <Bot className="w-5 h-5 text-white" />
                             </div>
-                            <span className="text-xl font-bold text-white">Meeting Bot</span>
+                            <span className="text-xl font-bold text-white">NeuroNote</span>
                         </div>
                         <div className="flex items-center gap-4">
                             {isSignedIn ? (

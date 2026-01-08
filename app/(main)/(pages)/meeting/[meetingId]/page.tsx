@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useMeetingDetail } from './hooks/useMeetingDetail'
 import MeetingHeader from './_components/MeetingHeader'
 import MeetingInfo from './_components/MeetingInfo'
+import LanguageSelector from './_components/LanguageSelector'
 import { Button } from '@/components/ui/button'
 import ActionItems from './_components/action-items/ActionItems'
 import TranscriptDisplay from './_components/TranscriptDisplay'
@@ -44,7 +45,11 @@ function MeetingDetail() {
         deleteActionItem,
         addActionItem,
         displayActionItems,
-        meetingInfoData
+        meetingInfoData,
+        translatedContent,
+        isTranslating,
+        selectedLanguage,
+        handleTranslate
     } = useMeetingDetail()
 
     return (
@@ -110,6 +115,13 @@ function MeetingDetail() {
                             </Button>
                         </div>
 
+                        {isTranslating && (
+                            <div className='mt-2 mb-2 flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 border border-border rounded-lg px-3 py-2'>
+                                <div className='h-3 w-3 rounded-full border-2 border-primary border-t-transparent animate-spin'></div>
+                                <span>Translating summary and transcript...</span>
+                            </div>
+                        )}
+
                         <div className='mt-6'>
                             {activeTab === 'summary' && (
                                 <div>
@@ -124,7 +136,7 @@ function MeetingDetail() {
                                                 <div className='bg-card border border-border rounded-lg p-4 md:p-6'>
                                                     <h3 className='text-lg font-semibold text-foreground mb-3'>Meeting Summary</h3>
                                                     <p className='text-muted-foreground leading-relaxed'>
-                                                        {meetingData.summary}
+                                                        {translatedContent.summary || meetingData.summary}
                                                     </p>
                                                 </div>
                                             )}
@@ -190,7 +202,19 @@ function MeetingDetail() {
                                             <p className='text-muted-foreground'>Loading meeting data..</p>
                                         </div>
                                     ) : meetingData?.transcript ? (
-                                        <TranscriptDisplay transcript={meetingData.transcript} />
+                                        <div>
+                                           
+                                            {typeof (translatedContent.transcript ?? meetingData.transcript) === 'string' ? (
+                                                <div className='bg-card rounded-lg p-6 border border-border'>
+                                                    <h3 className='text-lg font-semibold text-foreground mb-3'>Meeting Transcript</h3>
+                                                    <p className='text-muted-foreground whitespace-pre-wrap'>
+                                                        {translatedContent.transcript ?? (meetingData.transcript as string)}
+                                                    </p>
+                                                </div>
+                                            ) : (
+                                                <TranscriptDisplay transcript={(translatedContent.transcript ?? meetingData.transcript) as any} />
+                                            )}
+                                        </div>
                                     ) : (
                                         <div className='bg-card rounded-lg p-4 md:p-6 border-border text-center'>
                                             <p className='text-muted-foreground'>No transcript avaialable</p>

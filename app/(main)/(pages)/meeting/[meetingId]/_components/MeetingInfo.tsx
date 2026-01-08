@@ -8,7 +8,8 @@ interface MeetingData {
     title: string
     date: string
     time: string
-    userName: string
+    firstName: string
+    LastName: string
 }
 
 interface MeetingInfoProps {
@@ -30,18 +31,18 @@ function MeetingInfo({ meetingData }: MeetingInfoProps) {
                             <img
                                 src={user.imageUrl}
                               
-                                alt={`${meetingData.userName}'s profile`}
+                                alt={`${meetingData.firstName}'s profile`}
                                 className="w-5 h-5 rounded-full object-cover"
                             />
                         ) : (
                             <div className='w-5 h-5 bg-primary/10 rounded-full flex items-center justify-center'>
                                 <span className='text-xs text-primary font-medium'>
-                                    {meetingData.userName.charAt(0).toUpperCase()}
+                                    {meetingData.firstName.charAt(0).toUpperCase()}
                                 </span>
                             </div>
                         )}
                     </div>
-                    {meetingData.userName}
+                    {meetingData.firstName} {meetingData.LastName}
                 </span>
                 <span className='flex items-center gap-1'>
                     📅 {meetingData.date}
