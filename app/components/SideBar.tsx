@@ -2,6 +2,7 @@ import { Bot, DollarSign, Home, Layers3, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 import Link from "next/link";
+import Image from "next/image";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const items = [
@@ -41,14 +42,18 @@ export function AppSidebar() {
         <Sidebar collapsible="icon">
             <SidebarHeader className="border-b">
                 <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2 min-w-0">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
-                            <Bot className="h-5 w-5" />
-                        </div>
+                    <Link href="/" className="flex items-center gap-2 min-w-0 cursor-pointer hover:opacity-80 transition-opacity">
+                        <Image
+                            src="/logo.svg"
+                            alt="Logo"
+                            width={20}
+                            height={20}
+                            className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
+                        />
                         <span className="text-lg font-semibold text-sidebar-foreground truncate group-data-[collapsible=icon]:hidden">
-                            MeetingBot
+                            NeuroNote
                         </span>
-                    </div>
+                    </Link>
                     
                 </div>
             </SidebarHeader>

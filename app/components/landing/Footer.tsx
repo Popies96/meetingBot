@@ -1,4 +1,5 @@
-import { Bot } from 'lucide-react';
+
+import Image from "next/image";
 import React from 'react';
 
 function Footer() {
@@ -8,7 +9,13 @@ function Footer() {
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-30 py-10 max-w-4xl mx-auto">
           <div className="text-center lg:text-left">
             <a href="#" className="flex justify-center lg:justify-start items-center gap-2 mb-6">
-              <Bot className="w-8 h-8 text-indigo-400" />
+               <Image
+                  src="/logo.svg"
+                  alt="NeuroNote Logo"
+                   width={10}
+                  height={10}
+                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
+                                          />
               <span className="text-2xl font-bold text-white">NeuroNote</span>
             </a>
             <p className="py-8 text-sm text-gray-400 max-w-md">

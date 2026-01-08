@@ -1,7 +1,9 @@
+'use client'
 import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Video, Plus, Loader2, X } from 'lucide-react'
+import { Video, Plus, Loader2, X, CheckCircle2 } from 'lucide-react'
+import { toast } from 'sonner'
 
 function InstantMeeting() {
     const [selectedPlatform, setSelectedPlatform] = useState<'google-meet' | 'zoom' | 'microsoft' | null>(null)
@@ -106,7 +108,13 @@ function InstantMeeting() {
             setMeetingTitle('')
             setMeetingDesc('')
             setSelectedPlatform(null)
-            alert('Bot is joining the meeting!')
+            toast.success('Bot is joining your meeting', {
+                icon: <CheckCircle2 className='w-4 h-4 text-green-500' />,
+                description: new Intl.DateTimeFormat('en-US', {
+                    dateStyle: 'full',
+                    timeStyle: 'short',
+                }).format(new Date()),
+            })
         } catch (err) {
             setError('Failed to join meeting. Please try again.')
             console.error('Error joining meeting:', err)

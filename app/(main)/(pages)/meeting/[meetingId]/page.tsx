@@ -86,33 +86,41 @@ function MeetingDetail() {
                     <MeetingInfo meetingData={meetingInfoData} />
 
                     <div className='mb-8'>
-                        <div className='flex border-b border-border'>
-                            <Button
-                                variant='ghost'
-                                onClick={() => setActiveTab('summary')}
-                                className={`px-4 py-2 text-sm font-medium border-b-2 rounded-none shadow-none transition-colors
-                                ${activeTab === 'summary'
-                                        ? 'border-primary text-primary'
-                                        : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/50'
-                                    }`}
-                                style={{ boxShadow: 'none' }}
-                                type='button'
-                            >
-                                Summary
-                            </Button>
-                            <Button
-                                variant='ghost'
-                                onClick={() => setActiveTab('transcript')}
-                                className={`px-4 py-2 text-sm font-medium border-b-2 rounded-none shadow-none transition-colors
-                                ${activeTab === 'transcript'
-                                        ? 'border-primary text-primary'
-                                        : 'border-transparent text-muted-foreground hover:border-muted-foreground/50'
-                                    }`}
-                                style={{ boxShadow: 'none' }}
-                                type='button'
-                            >
-                                Transcript
-                            </Button>
+                        <div className='flex border-b border-border items-center justify-between'>
+                            <div className='flex'>
+                                <Button
+                                    variant='ghost'
+                                    onClick={() => setActiveTab('summary')}
+                                    className={`px-4 py-2 text-sm font-medium border-b-2 rounded-none shadow-none transition-colors
+                                    ${activeTab === 'summary'
+                                            ? 'border-primary text-primary'
+                                            : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/50'
+                                        }`}
+                                    style={{ boxShadow: 'none' }}
+                                    type='button'
+                                >
+                                    Summary
+                                </Button>
+                                <Button
+                                    variant='ghost'
+                                    onClick={() => setActiveTab('transcript')}
+                                    className={`px-4 py-2 text-sm font-medium border-b-2 rounded-none shadow-none transition-colors
+                                    ${activeTab === 'transcript'
+                                            ? 'border-primary text-primary'
+                                            : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/50'
+                                        }`}
+                                    style={{ boxShadow: 'none' }}
+                                    type='button'
+                                >
+                                    Transcript
+                                </Button>
+                            </div>
+                            <div className='pb-2'>
+                                <LanguageSelector 
+                                    onLanguageSelect={handleTranslate}
+                                    isTranslating={isTranslating}
+                                />
+                            </div>
                         </div>
 
                         {isTranslating && (

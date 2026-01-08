@@ -5,9 +5,10 @@ import ColorBends from "@/components/Silk/Silk"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs"
-import { ArrowRight, Bot, CheckCircle, ChevronRight, Play, Sparkles } from "lucide-react"
+import { ArrowRight, CheckCircle, ChevronRight, Play, Sparkles } from "lucide-react"
 import { useTheme } from "next-themes"
 import Link from "next/link"
+import Image from "next/image"
 import { useEffect, useState } from "react"
 
 export default function HeroSection() {
@@ -23,11 +24,15 @@ export default function HeroSection() {
             <nav className="border-b border-gray-800/50 sticky top-0 z-50 bg-black/20 backdrop-blur-sm">
                 <div className="max-w-6xl mx-auto px-4 py-4">
                     <div className="flex justify-between items-center">
-                        <div className="flex items-center space-x-2">
-                            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                                <Bot className="w-5 h-5 text-white" />
-                            </div>
-                            <span className="text-xl font-bold text-white">NeuroNote</span>
+                        <div className="flex items-center gap-2 sm:gap-3">
+                            <Image
+                                src="/logo.svg"
+                                alt="NeuroNote Logo"
+                                width={40}
+                                height={40}
+                                className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
+                            />
+                            <span className="text-lg sm:text-xl md:text-2xl font-bold text-white">NeuroNote</span>
                         </div>
                         <div className="flex items-center gap-4">
                             {isSignedIn ? (
