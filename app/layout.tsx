@@ -31,6 +31,21 @@ export const metadata: Metadata = {
     "productivity",
     "MeetingBot",
   ],
+  icons: {
+    icon: '/logo.svg', 
+  },
+    openGraph: {
+    title: "NeuroNote",
+    description: "AI Meeting Assistant & Intelligence Platform",
+    images: ['/Link_neuronote.jpg'],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "NeuroNote",
+    description: "AI Meeting Assistant & Intelligence Platform",
+    images: ['/Link_neuronote.jpg'],
+  },
 };
 
 export default function RootLayout({
