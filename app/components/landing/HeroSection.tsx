@@ -35,6 +35,13 @@ export default function HeroSection() {
                             <span className="text-lg sm:text-xl md:text-2xl font-bold text-white">NeuroNote</span>
                         </div>
                         <div className="flex items-center gap-4">
+                            {/* Public links for verification */}
+                            <Button asChild variant="ghost" className="text-white hover:bg-gray-800">
+                                <Link href="/privacy">Privacy</Link>
+                            </Button>
+                            <Button asChild variant="ghost" className="text-white hover:bg-gray-800">
+                                <Link href="/terms-of-use">Terms of use</Link>
+                            </Button>
                             {isSignedIn ? (
                                 <Button asChild className="bg-blue-600 hover:bg-blue-700 dark:text-white">
                                     <Link href="/home">Dashboard</Link>
