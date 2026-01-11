@@ -14,7 +14,7 @@ export default clerkMiddleware(async (auth, req) => {
   // Ensure public access for verification/legal pages
   publicRoutes: [
     "/privacy",
-    "/policy",
+    "/terms-of-use",
     "/robots.txt",
     "/sitemap.xml",
     "/.well-known(.*)"
