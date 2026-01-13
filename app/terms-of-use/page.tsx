@@ -1,4 +1,3 @@
-import { Meteors } from "@/components/ui/meteors";
 import Link from "next/link";
 
 export const metadata = {
