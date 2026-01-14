@@ -45,7 +45,7 @@ export default function MacbookScrollD() {
           }
         >
           <img
-            src={`screenshot_phone.png`}
+            src={`screenshot_phone.jpg`}
             alt="hero"
             height={720}
             width={1080}

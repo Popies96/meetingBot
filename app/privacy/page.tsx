@@ -1,4 +1,11 @@
 import Link from "next/link";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export const metadata = {
   title: "Privacy Policy",
@@ -11,24 +18,40 @@ export default function PrivacyPolicyPage() {
   const today = new Date();
   const effective = new Date(today.getFullYear(), 0, 13);
 
+  const navItems = [
+    { href: "#applicability", label: "Applicability" },
+    { href: "#information", label: "Information We Collect" },
+    { href: "#legal-bases", label: "Legal Bases (GDPR)" },
+    { href: "#usage", label: "How We Use Data" },
+    { href: "#retention", label: "Data Retention" },
+    { href: "#sharing", label: "Data Sharing" },
+    { href: "#transfers", label: "International Transfers" },
+    { href: "#security", label: "Security" },
+    { href: "#support-access", label: "Support Access" },
+    { href: "#rights", label: "Your Rights" },
+    { href: "#children", label: "Children's Privacy" },
+    { href: "#changes", label: "Policy Changes" },
+    { href: "#contact", label: "Contact" },
+  ];
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
       {/* Header */}
       <div className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 md:py-20">
           <div className="max-w-3xl">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-4 py-1.5 text-sm font-medium text-blue-400 ring-1 ring-blue-500/20">
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-blue-400 ring-1 ring-blue-500/20">
+              <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Legal Document
             </div>
 
-            <h1 id="privacy-policy" className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+            <h1 id="privacy-policy" className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
               Privacy Policy
             </h1>
 
-            <p className="text-sm text-slate-400 mb-6">
+            <p className="text-xs sm:text-sm text-slate-400 mb-4 sm:mb-6">
               <strong className="text-slate-300">Effective Date:</strong>{" "}
               {effective.toLocaleDateString("en-US", {
                 month: "long",
@@ -37,7 +60,7 @@ export default function PrivacyPolicyPage() {
               })}
             </p>
 
-            <p className="text-lg text-slate-300 leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
               This Privacy Policy explains how <strong className="text-white">NeuroNote</strong> collects, uses, and
               protects personal data when providing AI-powered meeting transcription, summaries, insights, and
               third-party integrations.
@@ -47,30 +70,48 @@ export default function PrivacyPolicyPage() {
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-7xl px-6 py-12">
-        <div className="grid grid-cols-12 gap-8 lg:gap-12">
-          {/* Sidebar */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-12">
+        <div className="grid grid-cols-12 gap-6 sm:gap-8 lg:gap-12">
+          
+          {/* Mobile Navigation Sheet */}
+          <div className="col-span-12 lg:hidden mb-4">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" className="w-full justify-start gap-2 bg-slate-800/50 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
+                  <Menu className="h-4 w-4" />
+                  Table of Contents
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[280px] sm:w-[350px] bg-slate-900 border-slate-800">
+                <nav className="mt-8">
+                  <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Navigation
+                  </p>
+                  <ul className="space-y-0.5 mt-2">
+                    {navItems.map((item) => (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          className="block px-3 py-2 text-sm text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
+
+          {/* Desktop Sidebar */}
           <aside className="col-span-12 lg:col-span-3 hidden lg:block">
             <nav className="sticky top-24 space-y-1">
               <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Navigation
               </p>
               <ul className="space-y-0.5">
-                {[
-                  { href: "#applicability", label: "Applicability" },
-                  { href: "#information", label: "Information We Collect" },
-                  { href: "#legal-bases", label: "Legal Bases (GDPR)" },
-                  { href: "#usage", label: "How We Use Data" },
-                  { href: "#retention", label: "Data Retention" },
-                  { href: "#sharing", label: "Data Sharing" },
-                  { href: "#transfers", label: "International Transfers" },
-                  { href: "#security", label: "Security" },
-                  { href: "#support-access", label: "Support Access" },
-                  { href: "#rights", label: "Your Rights" },
-                  { href: "#children", label: "Children’s Privacy" },
-                  { href: "#changes", label: "Policy Changes" },
-                  { href: "#contact", label: "Contact" },
-                ].map((item) => (
+                {navItems.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
@@ -86,7 +127,7 @@ export default function PrivacyPolicyPage() {
 
           {/* Article */}
           <article className="col-span-12 lg:col-span-9" role="article">
-            <div className="max-w-3xl space-y-12">
+            <div className="max-w-3xl space-y-8 sm:space-y-12">
 
               <Section id="applicability" title="Applicability">
                 <p>
@@ -97,7 +138,7 @@ export default function PrivacyPolicyPage() {
               </Section>
 
               <Section id="information" title="Information We Collect">
-                <ul className="list-disc pl-6 space-y-2">
+                <ul className="list-disc pl-5 sm:pl-6 space-y-2">
                   <li><strong>Account Data:</strong> Email, profile details, authentication identifiers.</li>
                   <li><strong>Calendar & Scheduling:</strong> Meeting titles, times, attendees.</li>
                   <li><strong>Meeting Content:</strong> Audio, transcripts, summaries, AI insights.</li>
@@ -109,7 +150,7 @@ export default function PrivacyPolicyPage() {
               </Section>
 
               <Section id="legal-bases" title="Legal Bases (GDPR)">
-                <ul className="list-disc pl-6 space-y-2">
+                <ul className="list-disc pl-5 sm:pl-6 space-y-2">
                   <li>Performance of a contract</li>
                   <li>Legitimate interests</li>
                   <li>User consent where required</li>
@@ -118,7 +159,7 @@ export default function PrivacyPolicyPage() {
               </Section>
 
               <Section id="usage" title="How We Use Information">
-                <ul className="list-disc pl-6 space-y-2">
+                <ul className="list-disc pl-5 sm:pl-6 space-y-2">
                   <li>Provide transcription, summaries, and AI features</li>
                   <li>Enable integrations and automation</li>
                   <li>Improve performance, reliability, and security</li>
@@ -162,14 +203,14 @@ export default function PrivacyPolicyPage() {
               </Section>
 
               <Section id="rights" title="Your Rights">
-                <ul className="list-disc pl-6 space-y-2">
+                <ul className="list-disc pl-5 sm:pl-6 space-y-2">
                   <li>Access, correction, deletion, and portability</li>
                   <li>Withdraw consent and revoke integrations</li>
                   <li>Additional rights under GDPR, CCPA, and similar laws</li>
                 </ul>
               </Section>
 
-              <Section id="children" title="Children’s Privacy">
+              <Section id="children" title="Children's Privacy">
                 <p>
                   NeuroNote is not intended for children under 13 and does not knowingly collect
                   their personal data.
@@ -188,8 +229,8 @@ export default function PrivacyPolicyPage() {
                 </p>
               </Section>
 
-              <div className="pt-8 mt-12 border-t border-slate-800">
-                <p className="text-sm text-slate-500 italic">
+              <div className="pt-6 sm:pt-8 mt-8 sm:mt-12 border-t border-slate-800">
+                <p className="text-xs sm:text-sm text-slate-500 italic">
                   Last updated:{" "}
                   {today.toLocaleDateString("en-US", {
                     month: "long",
@@ -217,12 +258,12 @@ interface SectionProps {
 function Section({ id, title, children }: SectionProps) {
   return (
     <section id={id} className="scroll-mt-24">
-      <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3 group">
-        <span className="text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">#</span>
+      <h2 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 group">
+        <span className="text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity text-base sm:text-xl">#</span>
         {title}
       </h2>
       <div className="prose prose-invert max-w-none">
-        <div className="text-slate-300 leading-relaxed space-y-4">
+        <div className="text-sm sm:text-base text-slate-300 leading-relaxed space-y-3 sm:space-y-4">
           {children}
         </div>
       </div>

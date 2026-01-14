@@ -1,5 +1,8 @@
-import React from 'react';
+'use client'
+
+import React, { useEffect, useRef, useState } from 'react';
 import { AnimatedGradientText } from '@/components/magicui/animated-gradient-text';
+import { cn } from '@/lib/utils';
 
 const testimonials = [
     {
@@ -53,39 +56,72 @@ const testimonials = [
 ];
 
 function TestimonialsSection() {
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                }
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current);
+            }
+        };
+    }, []);
+
     return (
-        <section className="pb-20 bg-black relative overflow-hidden">
+        <section ref={sectionRef} className="pb-20 bg-black relative overflow-hidden">
             {/* Background gradient effects */}
-            <div className="absolute inset-0  pointer-events-none"></div>
+            <div className="absolute inset-0 pointer-events-none"></div>
             
             <div className="max-w-7xl mx-auto px-4 lg:px-8 relative z-10">
-                <div className="grid lg:grid-cols-3  gap-8 items-start">
+                <div className="grid lg:grid-cols-3 gap-8 items-start">
                     {/* Left side - Header */}
-                   <div className="lg:col-span-1 mt-8 lg:mt-40">
-    <div className="lg:sticky lg:top-8 text-center lg:text-left">
-        
-        <h2 className="font-bold mb-4 text-3xl">
-            <AnimatedGradientText>Testimonials</AnimatedGradientText>   
-        </h2>
-        
-        <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
-            What our users says about us
-        </h2>
-        <p className="text-gray-500 text-base mb-8">
-            knowledge, expertise, advices & confidence
-        </p>
-        <button className="text-blue-500 font-semibold flex items-center gap-2 hover:gap-3 transition-all group text-sm mx-auto lg:mx-0">
-            View all testimonials
-            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-        </button>
-    </div>
-</div>
+                    <div className="lg:col-span-1 mt-8 lg:mt-40">
+                        <div className={cn(
+                            "lg:sticky lg:top-8 text-center lg:text-left transition-all duration-1000 ease-out",
+                            isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
+                        )}>
+                            <h2 className="font-bold mb-4 text-3xl">
+                                <AnimatedGradientText>Testimonials</AnimatedGradientText>   
+                            </h2>
+                            
+                            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+                                What our users says about us
+                            </h2>
+                            <p className="text-gray-500 text-base mb-8">
+                                knowledge, expertise, advices & confidence
+                            </p>
+                            <button className="text-blue-500 font-semibold flex items-center gap-2 hover:gap-3 transition-all group text-sm mx-auto lg:mx-0">
+                                View all testimonials
+                                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
 
                     {/* Middle - First testimonial */}
                     <div className="lg:col-span-1 mt-8 lg:mt-40">
-                        <div className="bg-gray-900/40 rounded-2xl p-8 border border-gray-800/50 hover:border-gray-700 transition-all duration-300 h-full flex flex-col">
+                        <div className={cn(
+                            "bg-gray-900/40 rounded-2xl p-8 border border-gray-800/50 hover:border-gray-700 transition-all duration-700 ease-out h-full flex flex-col",
+                            isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                        )}
+                        style={{ transitionDelay: '300ms' }}>
                             {/* Rating */}
                             <div className="flex gap-1 mb-6">
                                 {[...Array(5)].map((_, i) => (
@@ -126,7 +162,11 @@ function TestimonialsSection() {
                         {testimonials.slice(1, 3).map((testimonial, index) => (
                             <div
                                 key={index}
-                                className="bg-gray-900/40 rounded-2xl p-8 border border-gray-800/50 hover:border-gray-700 transition-all duration-300"
+                                className={cn(
+                                    "bg-gray-900/40 rounded-2xl p-8 border border-gray-800/50 hover:border-gray-700 transition-all duration-700 ease-out",
+                                    isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
+                                )}
+                                style={{ transitionDelay: `${500 + index * 200}ms` }}
                             >
                                 {/* Rating */}
                                 <div className="flex gap-1 mb-6">
@@ -168,4 +208,5 @@ function TestimonialsSection() {
         </section>
     );
 }
+
 export default TestimonialsSection;

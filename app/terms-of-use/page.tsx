@@ -1,4 +1,11 @@
 import Link from "next/link";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export const metadata = {
   title: "Terms of Use",
@@ -11,25 +18,47 @@ export default function PolicyPage() {
   const today = new Date();
   const effective = new Date(today.getFullYear(), 0, 13);
 
+  const navItems = [
+    { href: "#eligibility", label: "Eligibility" },
+    { href: "#account", label: "Account & Security" },
+    { href: "#access", label: "Access & Authorization" },
+    { href: "#acceptable-use", label: "Acceptable Use" },
+    { href: "#content-ownership", label: "Content Ownership" },
+    { href: "#our-ip", label: "Intellectual Property" },
+    { href: "#billing", label: "Subscriptions & Billing" },
+    { href: "#ai-beta", label: "AI Features & Beta" },
+    { href: "#third-parties", label: "Third-Party Services" },
+    { href: "#confidentiality", label: "Confidentiality" },
+    { href: "#privacy", label: "Privacy" },
+    { href: "#support-access", label: "Support Access" },
+    { href: "#termination", label: "Termination" },
+    { href: "#disclaimers", label: "Disclaimers" },
+    { href: "#liability", label: "Limitation of Liability" },
+    { href: "#indemnity", label: "Indemnification" },
+    { href: "#governing-law", label: "Governing Law" },
+    { href: "#changes", label: "Changes to Terms" },
+    { href: "#contact", label: "Contact" },
+  ];
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
       {/* Header Section */}
       <div className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 md:py-20">
           <div className="max-w-3xl">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-4 py-1.5 text-sm font-medium text-blue-400 ring-1 ring-blue-500/20">
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-blue-400 ring-1 ring-blue-500/20">
+              <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Legal Document
             </div>
-            <h1 id="terms-of-use" itemProp="headline" className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+            <h1 id="terms-of-use" itemProp="headline" className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
               Terms of Use
             </h1>
-            <p className="text-sm text-slate-400 mb-6">
+            <p className="text-xs sm:text-sm text-slate-400 mb-4 sm:mb-6">
               <strong className="text-slate-300">Effective Date:</strong> {effective.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </p>
-            <p className="text-lg text-slate-300 leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
               These Terms of Use ("Terms") govern your access to and use of <strong className="text-white">NeuroNote</strong>, a platform that automatically joins video
               calls (Zoom, Google Meet, Microsoft Teams) and provides AI-powered transcription, summaries, and actionable insights. By using the Service,
               you agree to these Terms.
@@ -39,36 +68,48 @@ export default function PolicyPage() {
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto max-w-7xl px-6 py-12">
-        <div className="grid grid-cols-12 gap-8 lg:gap-12">
-          {/* Sticky Navigation Sidebar */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-12">
+        <div className="grid grid-cols-12 gap-6 sm:gap-8 lg:gap-12">
+          
+          {/* Mobile Navigation Sheet */}
+          <div className="col-span-12 lg:hidden mb-4">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" className="w-full justify-start gap-2 bg-slate-800/50 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
+                  <Menu className="h-4 w-4" />
+                  Table of Contents
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[280px] sm:w-[350px] bg-slate-900 border-slate-800 overflow-y-auto">
+                <nav className="mt-8">
+                  <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Navigation
+                  </p>
+                  <ul className="space-y-0.5 mt-2">
+                    {navItems.map((item) => (
+                      <li key={item.href}>
+                        <Link
+                          className="block px-3 py-2 text-sm text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200"
+                          href={item.href}
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
+
+          {/* Desktop Sticky Navigation Sidebar */}
           <aside className="col-span-12 lg:col-span-3 hidden lg:block">
             <nav className="sticky top-24 space-y-1">
               <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Navigation
               </p>
               <ul className="space-y-0.5">
-                {[
-                  { href: "#eligibility", label: "Eligibility" },
-                  { href: "#account", label: "Account & Security" },
-                  { href: "#access", label: "Access & Authorization" },
-                  { href: "#acceptable-use", label: "Acceptable Use" },
-                  { href: "#content-ownership", label: "Content Ownership" },
-                  { href: "#our-ip", label: "Intellectual Property" },
-                  { href: "#billing", label: "Subscriptions & Billing" },
-                  { href: "#ai-beta", label: "AI Features & Beta" },
-                  { href: "#third-parties", label: "Third-Party Services" },
-                  { href: "#confidentiality", label: "Confidentiality" },
-                  { href: "#privacy", label: "Privacy" },
-                  { href: "#support-access", label: "Support Access" },
-                  { href: "#termination", label: "Termination" },
-                  { href: "#disclaimers", label: "Disclaimers" },
-                  { href: "#liability", label: "Limitation of Liability" },
-                  { href: "#indemnity", label: "Indemnification" },
-                  { href: "#governing-law", label: "Governing Law" },
-                  { href: "#changes", label: "Changes to Terms" },
-                  { href: "#contact", label: "Contact" },
-                ].map((item) => (
+                {navItems.map((item) => (
                   <li key={item.href}>
                     <Link
                       className="block px-3 py-2 text-sm text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200"
@@ -84,7 +125,7 @@ export default function PolicyPage() {
 
           {/* Main Article Content */}
           <article className="col-span-12 lg:col-span-9" role="article" itemScope itemType="https://schema.org/Article">
-            <div className="max-w-3xl space-y-12">
+            <div className="max-w-3xl space-y-8 sm:space-y-12">
 
               {/* Section Template */}
               <Section id="eligibility" title="Eligibility">
@@ -117,17 +158,17 @@ export default function PolicyPage() {
 
               <Section id="acceptable-use" title="Acceptable Use">
                 <ul className="space-y-2">
-                  <li className="flex gap-3">
-                    <span className="text-red-400 mt-1">✗</span>
-                    <span>No illegal, harmful, infringing, or abusive activities.</span>
+                  <li className="flex gap-2 sm:gap-3">
+                    <span className="text-red-400 mt-1 flex-shrink-0">✗</span>
+                    <span className="text-sm sm:text-base">No illegal, harmful, infringing, or abusive activities.</span>
                   </li>
-                  <li className="flex gap-3">
-                    <span className="text-red-400 mt-1">✗</span>
-                    <span>No attempts to bypass security, probe infrastructure, or misuse API rate limits.</span>
+                  <li className="flex gap-2 sm:gap-3">
+                    <span className="text-red-400 mt-1 flex-shrink-0">✗</span>
+                    <span className="text-sm sm:text-base">No attempts to bypass security, probe infrastructure, or misuse API rate limits.</span>
                   </li>
-                  <li className="flex gap-3">
-                    <span className="text-red-400 mt-1">✗</span>
-                    <span>No collection or processing of data without lawful basis or required consents.</span>
+                  <li className="flex gap-2 sm:gap-3">
+                    <span className="text-red-400 mt-1 flex-shrink-0">✗</span>
+                    <span className="text-sm sm:text-base">No collection or processing of data without lawful basis or required consents.</span>
                   </li>
                 </ul>
               </Section>
@@ -154,14 +195,14 @@ export default function PolicyPage() {
               </Section>
 
               <Section id="ai-beta" title="AI Features & Beta">
-                <div className="rounded-lg bg-amber-500/10 border border-amber-500/20 p-4">
-                  <div className="flex gap-3">
-                    <svg className="h-5 w-5 text-amber-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="rounded-lg bg-amber-500/10 border border-amber-500/20 p-3 sm:p-4">
+                  <div className="flex gap-2 sm:gap-3">
+                    <svg className="h-4 w-4 sm:h-5 sm:w-5 text-amber-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                     <div>
-                      <p className="font-medium text-amber-300 mb-1">Important Notice</p>
-                      <p className="text-sm text-amber-200/90">
+                      <p className="font-medium text-amber-300 mb-1 text-sm sm:text-base">Important Notice</p>
+                      <p className="text-xs sm:text-sm text-amber-200/90">
                         AI outputs (summaries, action items, insights) may be inaccurate. Beta features are provided "as is" and
                         may change or be discontinued.
                       </p>
@@ -175,7 +216,7 @@ export default function PolicyPage() {
                   Integrations (OpenAI, Google Generative AI, Pinecone, Slack, Asana, Jira, Trello, Zoom, Google Meet,
                   Microsoft Teams, Stripe, AWS, Clerk) are subject to their own terms and privacy policies.
                 </p>
-                <div className="rounded-lg bg-slate-800/50 border border-slate-700 p-4 text-sm">
+                <div className="rounded-lg bg-slate-800/50 border border-slate-700 p-3 sm:p-4 text-xs sm:text-sm">
                   <p className="text-slate-300">
                     We respect and rely on those providers' privacy policies for data processed by them. We only share the minimum data necessary to deliver
                     requested features within the scopes you authorize.
@@ -245,8 +286,8 @@ export default function PolicyPage() {
               </Section>
 
               {/* Footer Note */}
-              <div className="pt-8 mt-12 border-t border-slate-800">
-                <p className="text-sm text-slate-500 italic">
+              <div className="pt-6 sm:pt-8 mt-8 sm:mt-12 border-t border-slate-800">
+                <p className="text-xs sm:text-sm text-slate-500 italic">
                   Last updated: {today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                 </p>
               </div>
@@ -270,12 +311,12 @@ interface SectionProps {
 function Section({ id, title, children }: SectionProps) {
   return (
     <section id={id} className="scroll-mt-24">
-      <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3 group">
-        <span className="text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">#</span>
+      <h2 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 group">
+        <span className="text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity text-base sm:text-xl">#</span>
         {title}
       </h2>
       <div className="prose prose-invert prose-slate max-w-none">
-        <div className="text-slate-300 leading-relaxed space-y-4">
+        <div className="text-sm sm:text-base text-slate-300 leading-relaxed space-y-3 sm:space-y-4">
           {children}
         </div>
       </div>
