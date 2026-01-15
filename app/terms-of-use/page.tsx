@@ -1,4 +1,11 @@
 import Link from "next/link";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export const metadata = {
   title: "Terms of Use",
@@ -9,150 +16,310 @@ export const metadata = {
 
 export default function PolicyPage() {
   const today = new Date();
-  const effective = new Date(today.getFullYear(), 0, 1);
+  const effective = new Date(today.getFullYear(), 0, 13);
+
+  const navItems = [
+    { href: "#eligibility", label: "Eligibility" },
+    { href: "#account", label: "Account & Security" },
+    { href: "#access", label: "Access & Authorization" },
+    { href: "#acceptable-use", label: "Acceptable Use" },
+    { href: "#content-ownership", label: "Content Ownership" },
+    { href: "#our-ip", label: "Intellectual Property" },
+    { href: "#billing", label: "Subscriptions & Billing" },
+    { href: "#ai-beta", label: "AI Features & Beta" },
+    { href: "#third-parties", label: "Third-Party Services" },
+    { href: "#confidentiality", label: "Confidentiality" },
+    { href: "#privacy", label: "Privacy" },
+    { href: "#support-access", label: "Support Access" },
+    { href: "#termination", label: "Termination" },
+    { href: "#disclaimers", label: "Disclaimers" },
+    { href: "#liability", label: "Limitation of Liability" },
+    { href: "#indemnity", label: "Indemnification" },
+    { href: "#governing-law", label: "Governing Law" },
+    { href: "#changes", label: "Changes to Terms" },
+    { href: "#contact", label: "Contact" },
+  ];
 
   return (
-    <main className="mx-auto max-w-7xl px-6 py-12" itemScope itemType="https://schema.org/Article">
-      <header className="mb-8">
-        <h1 id="terms-of-use" itemProp="headline" className="text-3xl md:text-4xl font-bold">Terms of Use</h1>
-        <p className="text-sm text-gray-400"><strong>Effective:</strong> {effective.toLocaleDateString()}</p>
-        <p className="mt-4 max-w-3xl text-gray-300">
-          These Terms of Use ("Terms") govern your access to and use of <strong>NeuroNote</strong>, a platform that automatically joins video
-          calls (Zoom, Google Meet, Microsoft Teams) and provides AI-powered transcription, summaries, and actionable insights. By using the Service,
-          you agree to these Terms. This page is public for search engines and third-party verification.
-        </p>
-      </header>
-
-      <div className="grid grid-cols-12 gap-8">
-        <aside className="col-span-12 md:col-span-3 md:block hidden">
-          <nav className="sticky top-24 space-y-2 text-sm">
-            <p className="uppercase tracking-wide text-gray-400">Sections</p>
-            <ul className="space-y-2">
-              <li><Link className="text-gray-200 hover:text-white" href="#eligibility">Eligibility</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#account">Account Registration & Security</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#access">Access & Authorization</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#acceptable-use">Acceptable Use</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#content-ownership">Customer Content & Ownership</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#our-ip">Our Intellectual Property</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#billing">Subscriptions & Billing</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#ai-beta">AI Features & Beta</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#third-parties">Third‑Party Services</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#confidentiality">Confidentiality</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#privacy">Privacy</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#support-access">Support Access & Permissions</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#termination">Termination</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#disclaimers">Disclaimers</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#liability">Limitation of Liability</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#indemnity">Indemnification</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#governing-law">Governing Law</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#changes">Changes to Terms</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#contact">Contact</Link></li>
-            </ul>
-          </nav>
-        </aside>
-
-        <article className="col-span-12 md:col-span-9 mx-auto max-w-3xl prose" role="article">
-
-      <h2 id="eligibility">Eligibility</h2>
-      <p>You must be legally able to form a contract and use the Service in compliance with applicable laws.</p>
-
-      <h2 id="account">Account Registration & Security</h2>
-      <p>
-        You must provide accurate account information and keep credentials secure. Notify us immediately of
-        unauthorized access. You are responsible for all actions under your account.
-      </p>
-
-      <h2 id="access">Access & Authorization</h2>
-      <p>
-        By connecting calendars, conferencing platforms, or integrations, you grant NeuroNote permission to access
-        content within the scopes you authorize to schedule, join, and process meetings.
-      </p>
-
-      <h2 id="support-access">Support Access & Permissions</h2>
-      <p>
-        We do not access or view your meeting content unless you explicitly grant permission or request support. Any temporary support
-        access is limited in scope, time‑bound, and logged, and is used only to diagnose and resolve issues. You may revoke permissions
-        at any time, and we will cease access immediately except where required by law.
-      </p>
-
-      <h2 id="acceptable-use">Acceptable Use</h2>
-      <ul>
-        <li>No illegal, harmful, infringing, or abusive activities.</li>
-        <li>No attempts to bypass security, probe infrastructure, or misuse API rate limits.</li>
-        <li>No collection or processing of data without lawful basis or required consents.</li>
-      </ul>
-
-      <h2 id="content-ownership">Customer Content & Ownership</h2>
-      <p>
-        You retain rights to your content. You grant us a limited license to process, store, and transmit content solely
-        to provide the Service and improve features, subject to our Privacy Policy.
-      </p>
-
-      <h2 id="our-ip">Our Intellectual Property</h2>
-      <p>
-        NeuroNote, including software, designs, and documentation, is owned by us. You receive a limited, revocable
-        right to use the Service. You may not copy, modify, or create derivative works except as permitted by law.
-      </p>
-
-      <h2 id="billing">Subscriptions & Billing</h2>
-      <p>
-        Paid plans are billed via Stripe. Fees are non‑refundable unless required by law or stated otherwise.
-        We may change pricing with notice. Taxes may apply.
-      </p>
-
-      <h2 id="ai-beta">AI Features & Beta</h2>
-      <p>
-        AI outputs (summaries, action items, insights) may be inaccurate. Beta features are provided "as is" and
-        may change or be discontinued.
-      </p>
-
-      <h2 id="third-parties">Third‑Party Services</h2>
-      <p>
-        Integrations (OpenAI, Google Generative AI, Pinecone, Slack, Asana, Jira, Trello, Zoom, Google Meet,
-        Microsoft Teams, Stripe, AWS, Clerk) are subject to their own terms and privacy policies. We respect and rely on
-        those providers’ privacy policies for data processed by them. We only share the minimum data necessary to deliver
-        requested features within the scopes you authorize.
-      </p>
-
-      <h2 id="confidentiality">Confidentiality</h2>
-      <p>We each agree to protect confidential information received from the other and use it only as permitted.</p>
-
-      <h2 id="privacy">Privacy</h2>
-      <p>Your use of the Service is governed by our <Link href="/privacy">Privacy Policy</Link>, which also describes how we interact with third‑party providers and limit access to your data.</p>
-
-      <h2 id="termination">Termination</h2>
-      <p>
-        You may cancel at any time. We may suspend or terminate access for violations of these Terms or misuse.
-        Upon termination, your right to use the Service ceases.
-      </p>
-
-      <h2 id="disclaimers">Disclaimers</h2>
-      <p>
-        The Service is provided "as is" and "as available" without warranties of any kind, to the maximum extent
-        permitted by law.
-      </p>
-
-      <h2 id="liability">Limitation of Liability</h2>
-      <p>
-        To the maximum extent permitted by law, our aggregate liability is limited to the amounts you paid to us for the
-        Service during the twelve (12) months preceding the event giving rise to the claim.
-      </p>
-
-      <h2 id="indemnity">Indemnification</h2>
-      <p>You agree to indemnify and hold us harmless from claims arising out of your use of the Service or violation of these Terms.</p>
-
-      <h2 id="governing-law">Governing Law</h2>
-      <p>These Terms are governed by applicable laws; venue and jurisdiction will be designated as required by our policies.</p>
-
-      <h2 id="changes">Changes to Terms</h2>
-      <p>We may update these Terms from time to time. Continued use after changes constitutes acceptance.</p>
-
-      <h2 id="contact">Contact</h2>
-      <p>For questions regarding these Terms, please contact our support team.</p>
-
-      <p><em>Last updated:</em> {today.toLocaleDateString()}</p>
-        </article>
+    <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+      {/* Header Section */}
+      <div className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 md:py-20">
+          <div className="max-w-3xl">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-blue-400 ring-1 ring-blue-500/20">
+              <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Legal Document
+            </div>
+            <h1 id="terms-of-use" itemProp="headline" className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+              Terms of Use
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-400 mb-4 sm:mb-6">
+              <strong className="text-slate-300">Effective Date:</strong> {effective.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </p>
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
+              These Terms of Use ("Terms") govern your access to and use of <strong className="text-white">NeuroNote</strong>, a platform that automatically joins video
+              calls (Zoom, Google Meet, Microsoft Teams) and provides AI-powered transcription, summaries, and actionable insights. By using the Service,
+              you agree to these Terms.
+            </p>
+          </div>
+        </div>
       </div>
+
+      {/* Main Content */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-12">
+        <div className="grid grid-cols-12 gap-6 sm:gap-8 lg:gap-12">
+          
+          {/* Mobile Navigation Sheet */}
+          <div className="col-span-12 lg:hidden mb-4">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" className="w-full justify-start gap-2 bg-slate-800/50 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
+                  <Menu className="h-4 w-4" />
+                  Table of Contents
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[280px] sm:w-[350px] bg-slate-900 border-slate-800 overflow-y-auto">
+                <nav className="mt-8">
+                  <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Navigation
+                  </p>
+                  <ul className="space-y-0.5 mt-2">
+                    {navItems.map((item) => (
+                      <li key={item.href}>
+                        <Link
+                          className="block px-3 py-2 text-sm text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200"
+                          href={item.href}
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
+
+          {/* Desktop Sticky Navigation Sidebar */}
+          <aside className="col-span-12 lg:col-span-3 hidden lg:block">
+            <nav className="sticky top-24 space-y-1">
+              <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                Navigation
+              </p>
+              <ul className="space-y-0.5">
+                {navItems.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      className="block px-3 py-2 text-sm text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200"
+                      href={item.href}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
+
+          {/* Main Article Content */}
+          <article className="col-span-12 lg:col-span-9" role="article" itemScope itemType="https://schema.org/Article">
+            <div className="max-w-3xl space-y-8 sm:space-y-12">
+
+              {/* Section Template */}
+              <Section id="eligibility" title="Eligibility">
+                <p>
+                  You must be legally able to form a contract and use the Service in compliance with applicable laws.
+                </p>
+              </Section>
+
+              <Section id="account" title="Account Registration & Security">
+                <p>
+                  You must provide accurate account information and keep credentials secure. Notify us immediately of
+                  unauthorized access. You are responsible for all actions under your account.
+                </p>
+              </Section>
+
+              <Section id="access" title="Access & Authorization">
+                <p>
+                  By connecting calendars, conferencing platforms, or integrations, you grant NeuroNote permission to access
+                  content within the scopes you authorize to schedule, join, and process meetings.
+                </p>
+              </Section>
+
+              <Section id="support-access" title="Support Access & Permissions">
+                <p>
+                  We do not access or view your meeting content unless you explicitly grant permission or request support. Any temporary support
+                  access is limited in scope, time-bound, and logged, and is used only to diagnose and resolve issues. You may revoke permissions
+                  at any time, and we will cease access immediately except where required by law.
+                </p>
+              </Section>
+
+              <Section id="acceptable-use" title="Acceptable Use">
+                <ul className="space-y-2">
+                  <li className="flex gap-2 sm:gap-3">
+                    <span className="text-red-400 mt-1 flex-shrink-0">✗</span>
+                    <span className="text-sm sm:text-base">No illegal, harmful, infringing, or abusive activities.</span>
+                  </li>
+                  <li className="flex gap-2 sm:gap-3">
+                    <span className="text-red-400 mt-1 flex-shrink-0">✗</span>
+                    <span className="text-sm sm:text-base">No attempts to bypass security, probe infrastructure, or misuse API rate limits.</span>
+                  </li>
+                  <li className="flex gap-2 sm:gap-3">
+                    <span className="text-red-400 mt-1 flex-shrink-0">✗</span>
+                    <span className="text-sm sm:text-base">No collection or processing of data without lawful basis or required consents.</span>
+                  </li>
+                </ul>
+              </Section>
+
+              <Section id="content-ownership" title="Customer Content & Ownership">
+                <p>
+                  You retain rights to your content. You grant us a limited license to process, store, and transmit content solely
+                  to provide the Service and improve features, subject to our Privacy Policy.
+                </p>
+              </Section>
+
+              <Section id="our-ip" title="Our Intellectual Property">
+                <p>
+                  NeuroNote, including software, designs, and documentation, is owned by us. You receive a limited, revocable
+                  right to use the Service. You may not copy, modify, or create derivative works except as permitted by law.
+                </p>
+              </Section>
+
+              <Section id="billing" title="Subscriptions & Billing">
+                <p>
+                  Paid plans are billed via Stripe. Fees are non-refundable unless required by law or stated otherwise.
+                  We may change pricing with notice. Taxes may apply.
+                </p>
+              </Section>
+
+              <Section id="ai-beta" title="AI Features & Beta">
+                <div className="rounded-lg bg-amber-500/10 border border-amber-500/20 p-3 sm:p-4">
+                  <div className="flex gap-2 sm:gap-3">
+                    <svg className="h-4 w-4 sm:h-5 sm:w-5 text-amber-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div>
+                      <p className="font-medium text-amber-300 mb-1 text-sm sm:text-base">Important Notice</p>
+                      <p className="text-xs sm:text-sm text-amber-200/90">
+                        AI outputs (summaries, action items, insights) may be inaccurate. Beta features are provided "as is" and
+                        may change or be discontinued.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Section>
+
+              <Section id="third-parties" title="Third-Party Services">
+                <p className="mb-4">
+                  Integrations (OpenAI, Google Generative AI, Pinecone, Slack, Asana, Jira, Trello, Zoom, Google Meet,
+                  Microsoft Teams, Stripe, AWS, Clerk) are subject to their own terms and privacy policies.
+                </p>
+                <div className="rounded-lg bg-slate-800/50 border border-slate-700 p-3 sm:p-4 text-xs sm:text-sm">
+                  <p className="text-slate-300">
+                    We respect and rely on those providers' privacy policies for data processed by them. We only share the minimum data necessary to deliver
+                    requested features within the scopes you authorize.
+                  </p>
+                </div>
+              </Section>
+
+              <Section id="confidentiality" title="Confidentiality">
+                <p>
+                  We each agree to protect confidential information received from the other and use it only as permitted.
+                </p>
+              </Section>
+
+              <Section id="privacy" title="Privacy">
+                <p>
+                  Your use of the Service is governed by our{" "}
+                  <Link href="/privacy" className="text-blue-400 hover:text-blue-300 underline underline-offset-4 transition-colors">
+                    Privacy Policy
+                  </Link>
+                  , which also describes how we interact with third-party providers and limit access to your data.
+                </p>
+              </Section>
+
+              <Section id="termination" title="Termination">
+                <p>
+                  You may cancel at any time. We may suspend or terminate access for violations of these Terms or misuse.
+                  Upon termination, your right to use the Service ceases.
+                </p>
+              </Section>
+
+              <Section id="disclaimers" title="Disclaimers">
+                <p>
+                  The Service is provided "as is" and "as available" without warranties of any kind, to the maximum extent
+                  permitted by law.
+                </p>
+              </Section>
+
+              <Section id="liability" title="Limitation of Liability">
+                <p>
+                  To the maximum extent permitted by law, our aggregate liability is limited to the amounts you paid to us for the
+                  Service during the twelve (12) months preceding the event giving rise to the claim.
+                </p>
+              </Section>
+
+              <Section id="indemnity" title="Indemnification">
+                <p>
+                  You agree to indemnify and hold us harmless from claims arising out of your use of the Service or violation of these Terms.
+                </p>
+              </Section>
+
+              <Section id="governing-law" title="Governing Law">
+                <p>
+                  These Terms are governed by applicable laws; venue and jurisdiction will be designated as required by our policies.
+                </p>
+              </Section>
+
+              <Section id="changes" title="Changes to Terms">
+                <p>
+                  We may update these Terms from time to time. Continued use after changes constitutes acceptance.
+                </p>
+              </Section>
+
+              <Section id="contact" title="Contact">
+                <p>
+                  For questions regarding these Terms, please contact our support team.
+                </p>
+              </Section>
+
+              {/* Footer Note */}
+              <div className="pt-6 sm:pt-8 mt-8 sm:mt-12 border-t border-slate-800">
+                <p className="text-xs sm:text-sm text-slate-500 italic">
+                  Last updated: {today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                </p>
+              </div>
+
+            </div>
+          </article>
+        </div>
+      </div>
+      
     </main>
+  );
+}
+
+// Reusable Section Component
+interface SectionProps {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}
+
+function Section({ id, title, children }: SectionProps) {
+  return (
+    <section id={id} className="scroll-mt-24">
+      <h2 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 group">
+        <span className="text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity text-base sm:text-xl">#</span>
+        {title}
+      </h2>
+      <div className="prose prose-invert prose-slate max-w-none">
+        <div className="text-sm sm:text-base text-slate-300 leading-relaxed space-y-3 sm:space-y-4">
+          {children}
+        </div>
+      </div>
+    </section>
   );
 }

@@ -1,163 +1,272 @@
 import Link from "next/link";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export const metadata = {
   title: "Privacy Policy",
   description:
-    "How MeetingBot collects, uses, and protects personal data across meetings, integrations, and AI features.",
+    "How NeuroNote collects, uses, and protects personal data across meetings, integrations, and AI features.",
   alternates: { canonical: "/privacy" },
 };
 
-export default function PrivacyPage() {
+export default function PrivacyPolicyPage() {
   const today = new Date();
-  const effective = new Date(today.getFullYear(), 0, 1);
+  const effective = new Date(today.getFullYear(), 0, 13);
+
+  const navItems = [
+    { href: "#applicability", label: "Applicability" },
+    { href: "#information", label: "Information We Collect" },
+    { href: "#legal-bases", label: "Legal Bases (GDPR)" },
+    { href: "#usage", label: "How We Use Data" },
+    { href: "#retention", label: "Data Retention" },
+    { href: "#sharing", label: "Data Sharing" },
+    { href: "#transfers", label: "International Transfers" },
+    { href: "#security", label: "Security" },
+    { href: "#support-access", label: "Support Access" },
+    { href: "#rights", label: "Your Rights" },
+    { href: "#children", label: "Children's Privacy" },
+    { href: "#changes", label: "Policy Changes" },
+    { href: "#contact", label: "Contact" },
+  ];
 
   return (
-    <main className="mx-auto max-w-7xl px-6 py-12" itemScope itemType="https://schema.org/Article">
-      <header className="mb-8">
-        <h1 id="privacy-policy" itemProp="headline" className="text-3xl md:text-4xl font-bold">Privacy Policy</h1>
-        <p className="text-sm text-gray-400"><strong>Effective:</strong> {effective.toLocaleDateString()}</p>
-        <p className="mt-4 max-w-3xl text-gray-300">
-          This Privacy Policy explains how <strong>NeuroNote</strong> ("we", "us", "our") collects, uses, and protects
-          information when you use our platform to automatically join meetings on Zoom, Google Meet, and Microsoft Teams and
-          provide AI-powered transcription, summaries, and insights. This page is publicly accessible for search engines and
-          third-party verification.
-        </p>
-      </header>
+    <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+      {/* Header */}
+      <div className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 md:py-20">
+          <div className="max-w-3xl">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-blue-400 ring-1 ring-blue-500/20">
+              <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Legal Document
+            </div>
 
-      <div className="grid grid-cols-12 gap-8">
-        <aside className="col-span-12 md:col-span-3 md:block hidden">
-          <nav className="sticky top-24 space-y-2 text-sm">
-            <p className="uppercase tracking-wide text-gray-400">Sections</p>
-            <ul className="space-y-2">
-              <li><Link className="text-gray-200 hover:text-white" href="#applicability">Applicability</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#information-we-collect">Information We Collect</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#legal-bases">Legal Bases (GDPR)</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#how-we-use">How We Use Information</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#retention">Data Retention</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#sharing">Data Sharing & Disclosures</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#transfers">International Transfers</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#third-party-privacy">Third‑Party Privacy Policies</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#security">Security</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#support-access">Support Access & Permissions</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#your-rights">Your Rights</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#children">Children’s Privacy</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#changes">Policy Changes</Link></li>
-              <li><Link className="text-gray-200 hover:text-white" href="#contact">Contact</Link></li>
-            </ul>
-          </nav>
-        </aside>
+            <h1 id="privacy-policy" className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+              Privacy Policy
+            </h1>
 
-        <article className="col-span-12 md:col-span-9 mx-auto max-w-3xl prose" role="article">
+            <p className="text-xs sm:text-sm text-slate-400 mb-4 sm:mb-6">
+              <strong className="text-slate-300">Effective Date:</strong>{" "}
+              {effective.toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </p>
 
-      <h2 id="applicability">Applicability</h2>
-      <p>
-        This Policy applies to the NeuroNote web application, associated APIs, the Slack bot,
-        AWS Lambda workers, and related services that process meeting data and integrations with
-        third-party platforms (e.g., Asana, Jira, Trello, Slack). If a third party provides its own
-        privacy terms, those terms govern their processing.
-      </p>
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
+              This Privacy Policy explains how <strong className="text-white">NeuroNote</strong> collects, uses, and
+              protects personal data when providing AI-powered meeting transcription, summaries, insights, and
+              third-party integrations.
+            </p>
+          </div>
+        </div>
+      </div>
 
-      <h2 id="information-we-collect">Information We Collect and Receive</h2>
-      <ul>
-        <li><strong>Account & Auth Data:</strong> Email, profile details, and identifiers provided via Clerk authentication.</li>
-        <li><strong>Calendar & Scheduling:</strong> Meeting titles, times, attendees, and status to automatically schedule bots.</li>
-        <li><strong>Meeting Media:</strong> Audio/voice data, transcripts, summaries, and derived insights from your meetings.</li>
-        <li><strong>Integrations Data:</strong> Workspace identifiers and content from tools you connect (Slack, Asana, Jira, Trello) within authorized scopes.</li>
-        <li><strong>AI Processing Data:</strong> Content sent to AI providers (e.g., OpenAI, Google Generative AI) for transcription, summarization, and chat; embeddings stored in Pinecone.</li>
-        <li><strong>Payments:</strong> Subscription and billing information handled by Stripe.</li>
-        <li><strong>Storage & Logs:</strong> Files and artifacts stored in AWS S3; operational logs and security events.</li>
-        <li><strong>Device & Usage:</strong> IP address, device information, pages viewed, and actions taken to improve and secure the service.</li>
-        <li><strong>Cookies & Similar Tech:</strong> Session cookies and analytics that help deliver core functionality.</li>
-      </ul>
-      <p>
-        We only access integrations and meeting content that you explicitly authorize. If you revoke access,
-        certain features may stop working.
-      </p>
+      {/* Content */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-12">
+        <div className="grid grid-cols-12 gap-6 sm:gap-8 lg:gap-12">
+          
+          {/* Mobile Navigation Sheet */}
+          <div className="col-span-12 lg:hidden mb-4">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" className="w-full justify-start gap-2 bg-slate-800/50 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
+                  <Menu className="h-4 w-4" />
+                  Table of Contents
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[280px] sm:w-[350px] bg-slate-900 border-slate-800">
+                <nav className="mt-8">
+                  <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Navigation
+                  </p>
+                  <ul className="space-y-0.5 mt-2">
+                    {navItems.map((item) => (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          className="block px-3 py-2 text-sm text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
 
-      <h2 id="legal-bases">Legal Bases (GDPR)</h2>
-      <ul>
-        <li><strong>Performance of a contract:</strong> To deliver meeting transcription, summaries, chat, and integrations.</li>
-        <li><strong>Legitimate interests:</strong> To secure, maintain, and improve the platform.</li>
-        <li><strong>Consent:</strong> Where required (e.g., certain analytics, marketing, or recordings as applicable).</li>
-        <li><strong>Legal obligations:</strong> To comply with applicable law, requests, and regulations.</li>
-      </ul>
+          {/* Desktop Sidebar */}
+          <aside className="col-span-12 lg:col-span-3 hidden lg:block">
+            <nav className="sticky top-24 space-y-1">
+              <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                Navigation
+              </p>
+              <ul className="space-y-0.5">
+                {navItems.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="block px-3 py-2 text-sm text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
 
-      <h2 id="how-we-use">How We Use Information</h2>
-      <ul>
-        <li>Operate core features: transcription, summaries, action items, meeting search, and chat.</li>
-        <li>Sync with project management tools and Slack to post updates you opt into.</li>
-        <li>Personalize bot behavior and improve AI models and prompts.</li>
-        <li>Provide support, detect fraud, ensure security, and monitor reliability.</li>
-        <li>Comply with legal requirements and enforce our Terms of Use.</li>
-      </ul>
+          {/* Article */}
+          <article className="col-span-12 lg:col-span-9" role="article">
+            <div className="max-w-3xl space-y-8 sm:space-y-12">
 
-      <h2 id="retention">Data Retention</h2>
-      <p>
-        We retain personal data only as long as needed for the purposes described, for as long as your account is active,
-        or as required by law. You may request deletion; some data may be retained for security, compliance, or auditing.
-      </p>
+              <Section id="applicability" title="Applicability">
+                <p>
+                  This Policy applies to the NeuroNote web application, APIs, bots, background workers,
+                  and integrations with third-party platforms. Third-party services are governed by
+                  their own privacy policies.
+                </p>
+              </Section>
 
-      <h2 id="sharing">Data Sharing and Disclosures</h2>
-      <p>We may share information with:</p>
-      <ul>
-        <li><strong>Service Providers:</strong> OpenAI, Google Generative AI, Pinecone, Stripe, AWS, Clerk, Slack, Zoom, Google Meet, Microsoft Teams.</li>
-        <li><strong>Integrations:</strong> Asana, Jira, Trello, and others you connect.</li>
-        <li><strong>Security & Compliance:</strong> When required by law, to protect rights, or investigate misuse.</li>
-        <li><strong>Business transfers:</strong> In connection with mergers, acquisitions, or asset sales in compliance with applicable law.</li>
-      </ul>
+              <Section id="information" title="Information We Collect">
+                <ul className="list-disc pl-5 sm:pl-6 space-y-2">
+                  <li><strong>Account Data:</strong> Email, profile details, authentication identifiers.</li>
+                  <li><strong>Calendar & Scheduling:</strong> Meeting titles, times, attendees.</li>
+                  <li><strong>Meeting Content:</strong> Audio, transcripts, summaries, AI insights.</li>
+                  <li><strong>Integrations:</strong> Slack, Asana, Jira, Trello content within authorized scopes.</li>
+                  <li><strong>AI Processing:</strong> Data sent to AI providers for transcription and summaries.</li>
+                  <li><strong>Payments:</strong> Billing handled securely by Stripe.</li>
+                  <li><strong>Usage & Logs:</strong> IP address, device data, activity logs.</li>
+                </ul>
+              </Section>
 
-      <h2 id="transfers">International Data Transfers</h2>
-      <p>
-        We may process and store data in the United States and other countries. Where required, we use appropriate safeguards
-        for cross-border transfers.
-      </p>
+              <Section id="legal-bases" title="Legal Bases (GDPR)">
+                <ul className="list-disc pl-5 sm:pl-6 space-y-2">
+                  <li>Performance of a contract</li>
+                  <li>Legitimate interests</li>
+                  <li>User consent where required</li>
+                  <li>Legal obligations</li>
+                </ul>
+              </Section>
 
-      <h2 id="third-party-privacy">Third‑Party Privacy Policies</h2>
-      <p>
-        NeuroNote integrates with third‑party services (e.g., OpenAI, Google Generative AI, Pinecone, Slack, Asana, Jira, Trello,
-        Zoom, Google Meet, Microsoft Teams, Stripe, AWS, Clerk). We respect and rely on the privacy policies of these providers.
-        When data is sent to or processed by a third party, its handling is governed by that provider’s own privacy policy and terms.
-        We limit sharing to the minimum required to deliver features, restricted to scopes you authorize, and you can revoke access at any time.
-      </p>
+              <Section id="usage" title="How We Use Information">
+                <ul className="list-disc pl-5 sm:pl-6 space-y-2">
+                  <li>Provide transcription, summaries, and AI features</li>
+                  <li>Enable integrations and automation</li>
+                  <li>Improve performance, reliability, and security</li>
+                  <li>Provide customer support</li>
+                </ul>
+              </Section>
 
-      <h2 id="security">Security</h2>
-      <p>
-        We implement technical and organizational measures (access controls, encryption in transit/at rest where applicable,
-        monitoring, backups) to protect data. No method is 100% secure, but we work to maintain industry-standard protections.
-      </p>
+              <Section id="retention" title="Data Retention">
+                <p>
+                  We retain personal data only as long as necessary to provide the Service or meet
+                  legal obligations. You may request deletion at any time.
+                </p>
+              </Section>
 
-      <h2 id="support-access">Support Access & Permissions</h2>
-      <p>
-        We do not access or view your meeting content unless you explicitly grant permission or request assistance. Any support‑related
-        access is limited, time‑bound, and logged, and is used solely to troubleshoot or resolve issues. You can revoke permissions at
-        any time, and we will cease access immediately except where required by law.
-      </p>
+              <Section id="sharing" title="Data Sharing & Disclosures">
+                <p>
+                  Data is shared only with trusted service providers and integrations within
+                  explicitly authorized scopes.
+                </p>
+              </Section>
 
-      <h2 id="your-rights">Your Rights</h2>
-      <ul>
-        <li>Access, correction, deletion, and portability of your data.</li>
-        <li>Opt-out of certain processing and revoke integrations.</li>
-        <li>Residents of specific jurisdictions (e.g., EU/EEA, UK, California) may have additional rights.</li>
-      </ul>
+              <Section id="transfers" title="International Data Transfers">
+                <p>
+                  Data may be processed in multiple countries with appropriate safeguards applied
+                  where required by law.
+                </p>
+              </Section>
 
-      <h2 id="children">Children’s Privacy</h2>
-      <p>
-        NeuroNote is not directed to children under 13 (or other age as defined by local law). We do not knowingly
-        collect personal data from children.
-      </p>
+              <Section id="security" title="Security">
+                <p>
+                  We apply industry-standard technical and organizational measures including
+                  encryption, access control, monitoring, and logging.
+                </p>
+              </Section>
 
-      <h2 id="changes">Changes to This Policy</h2>
-      <p>
-        We may update this Policy from time to time. The "Effective" date will indicate the latest revision.
-      </p>
+              <Section id="support-access" title="Support Access & Permissions">
+                <p>
+                  Support access is granted only with explicit permission, is time-bound, logged,
+                  and revocable at any time.
+                </p>
+              </Section>
 
-      <h2 id="contact">Contact</h2>
-      <p>
-        For privacy questions or requests, contact our support team.
-      </p>
-      <p><em>Last updated:</em> {today.toLocaleDateString()}</p>
-        </article>
+              <Section id="rights" title="Your Rights">
+                <ul className="list-disc pl-5 sm:pl-6 space-y-2">
+                  <li>Access, correction, deletion, and portability</li>
+                  <li>Withdraw consent and revoke integrations</li>
+                  <li>Additional rights under GDPR, CCPA, and similar laws</li>
+                </ul>
+              </Section>
+
+              <Section id="children" title="Children's Privacy">
+                <p>
+                  NeuroNote is not intended for children under 13 and does not knowingly collect
+                  their personal data.
+                </p>
+              </Section>
+
+              <Section id="changes" title="Policy Changes">
+                <p>
+                  We may update this Policy from time to time. Continued use constitutes acceptance.
+                </p>
+              </Section>
+
+              <Section id="contact" title="Contact">
+                <p>
+                  For privacy-related questions or requests, please contact our support team.
+                </p>
+              </Section>
+
+              <div className="pt-6 sm:pt-8 mt-8 sm:mt-12 border-t border-slate-800">
+                <p className="text-xs sm:text-sm text-slate-500 italic">
+                  Last updated:{" "}
+                  {today.toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </p>
+              </div>
+
+            </div>
+          </article>
+        </div>
       </div>
     </main>
+  );
+}
+
+/* Section Component */
+interface SectionProps {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}
+
+function Section({ id, title, children }: SectionProps) {
+  return (
+    <section id={id} className="scroll-mt-24">
+      <h2 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 group">
+        <span className="text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity text-base sm:text-xl">#</span>
+        {title}
+      </h2>
+      <div className="prose prose-invert max-w-none">
+        <div className="text-sm sm:text-base text-slate-300 leading-relaxed space-y-3 sm:space-y-4">
+          {children}
+        </div>
+      </div>
+    </section>
   );
 }

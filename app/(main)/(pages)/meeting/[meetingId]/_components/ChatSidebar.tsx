@@ -18,6 +18,7 @@ interface ChatSidebarProps {
     onSendMessage: () => void
     onSuggestionClick: (suggestion: string) => void
     onClose?: () => void
+    isMobile?: boolean
 }
 
 function ChatSidebar({
@@ -27,7 +28,8 @@ function ChatSidebar({
     onInputChange,
     onSendMessage,
     onSuggestionClick,
-    onClose
+    onClose,
+    isMobile = false
 }: ChatSidebarProps) {
    
     const chatSuggestions = [
@@ -37,7 +39,7 @@ function ChatSidebar({
         "Summarize the key action items from this meeting"
     ]
     return (
-        <div className=' w-96 border-l border-border rounded-lg bg-card flex flex-col h-full shadow-2xl'>
+        <div className={`${isMobile ? 'h-full' : 'w-96'} border-l border-border rounded-lg bg-card flex flex-col shadow-2xl`}>
 
             <div className='p-4 border-b border-border flex-shrink-0 flex items-center justify-between'>
                 <div>
@@ -110,8 +112,8 @@ function ChatSidebar({
             
             </div>
 
-            <div className='p-3 pt-2  border-border flex-shrink-0 lg:pb-4'>
-                <div className='flex gap-2 '>
+            <div className='p-3 pt-2 border-border flex-shrink-0 lg:pb-4'>
+                <div className='flex gap-2'>
                     <Input
                         type='text'
                         value={chatInput}

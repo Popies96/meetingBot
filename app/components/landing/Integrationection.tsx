@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
 import { PinContainer } from "@/components/ui/3d-pin";
+import { cn } from "@/lib/utils";
 
 const integrations = [
     { name: "Slack", image: "slack.png" },
@@ -13,11 +14,41 @@ const integrations = [
 ];
 
 function IntegrationsSection() {
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                }
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current);
+            }
+        };
+    }, []);
+
     return (
-        <section className="py-20 bg-black">
+        <section ref={sectionRef} className="py-20 bg-black">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                    <h2 className={cn(
+                        "text-3xl md:text-4xl font-bold text-white mb-4 transition-all duration-1000 ease-out",
+                        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                    )}>
                         Seamless{" "}
                         <AnimatedGradientText>
                             <span className="bg-clip-text text-transparent">
@@ -25,7 +56,10 @@ function IntegrationsSection() {
                             </span>
                         </AnimatedGradientText>
                     </h2>
-                    <p className="text-lg bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text text-transparent">
+                    <p className={cn(
+                        "text-lg bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text text-transparent transition-all duration-1000 ease-out delay-200",
+                        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                    )}>
                         Connect with the tools you already use and love
                     </p>
                 </div>
@@ -33,13 +67,22 @@ function IntegrationsSection() {
                 {/* Desktop view - horizontal with pin animation */}
                 <div className="hidden md:flex justify-center items-center gap-6 flex-nowrap">
                     {integrations.map((integration, i) => (
-                        <div key={i} className="h-[15rem] flex items-center justify-center flex-shrink-0">
+                        <div 
+                            key={i} 
+                            className={cn(
+                                "h-[15rem] flex items-center justify-center flex-shrink-0 transition-all duration-700 ease-out",
+                                isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-12 scale-90"
+                            )}
+                            style={{ 
+                                transitionDelay: isVisible ? `${400 + i * 150}ms` : '0ms' 
+                            }}
+                        >
                             <PinContainer
                                 title={integration.name}
                                 href="#"
                             >
                                 <div className="flex basis-full flex-col p-2 tracking-tight text-slate-100/50 w-[6rem] h-[6rem]">
-                                    <div className="flex flex-1 w-full rounded-lg bg-white/5 border border-gray-800 p-3 items-center justify-center">
+                                    <div className="flex flex-1 w-full rounded-lg bg-white/5 border border-gray-800 p-3 items-center justify-center hover:bg-white/10 transition-colors">
                                         <Image
                                             src={`/${integration.image}`}
                                             alt={integration.name}
@@ -59,7 +102,13 @@ function IntegrationsSection() {
                     {integrations.map((integration, i) => (
                         <div
                             key={i}
-                            className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-gray-800"
+                            className={cn(
+                                "flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-gray-800 transition-all duration-700 ease-out",
+                                isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
+                            )}
+                            style={{ 
+                                transitionDelay: isVisible ? `${400 + i * 100}ms` : '0ms' 
+                            }}
                         >
                             <div className="w-16 h-16 bg-white/5 rounded-lg border border-gray-700 p-3 flex items-center justify-center flex-shrink-0">
                                 <Image

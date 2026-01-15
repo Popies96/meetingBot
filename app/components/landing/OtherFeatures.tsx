@@ -32,6 +32,10 @@ const features = [
 ];
 
 function OtherFeaturesSection() {
+  // Detect if mobile for slower speed
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const scrollSpeed = isMobile ? 25 : 40;
+
   return (
     <section className="pb-4 bg-black min-h-screen flex items-center">
       <div className="w-full px-4">
@@ -48,20 +52,21 @@ function OtherFeaturesSection() {
         </div>
 
         <Marquee className="py-8">
-         
-          <MarqueeContent speed={40}>
+          <MarqueeContent speed={scrollSpeed}>
             {[...features, ...features].map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <MarqueeItem key={index}>
-                  <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6 hover:bg-gray-900/70 hover:border-gray-700 transition-all w-[55vh] h-[35vh]">
-                    <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-blue-400" />
+                  <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-8 sm:p-6 hover:bg-gray-900/70 hover:border-gray-700 transition-all w-[85vw] sm:w-[70vw] md:w-[55vh] h-[60vh] sm:h-[50vh] md:h-[35vh] flex flex-col">
+                    <div className="w-16 h-16 sm:w-14 sm:h-14 md:w-12 md:h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-6 sm:mb-5 md:mb-4">
+                      <Icon className="w-8 h-8 sm:w-7 sm:h-7 md:w-6 md:h-6 text-blue-400" />
                     </div>
-                    <h3 className="text-xl font-semibold text-white mb-2">
+                    <h3 className="text-3xl sm:text-2xl md:text-xl font-semibold text-white mb-5 sm:mb-4 md:mb-2">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-400">{feature.description}</p>
+                    <p className="text-gray-400 text-xl sm:text-lg md:text-base leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
                 </MarqueeItem>
               );

@@ -282,46 +282,50 @@ function MeetingDetail() {
             )}
 
             {/* Mobile ChatSidebar Overlay */}
-            {isChatOpen && (
-                <>
-                    {/* Backdrop */}
-                    <div
-                        className='lg:hidden fixed inset-0 bg-black/50 z-40'
-                        onClick={() => setIsChatOpen(false)}
-                    />
+{isChatOpen && (
+    <>
+        {/* Backdrop */}
+        <div
+            className='lg:hidden fixed inset-0 bg-black/50 z-50'
+            onClick={() => setIsChatOpen(false)}
+        />
 
-                    {/* Sliding Chat Panel */}
-                    <div className='lg:hidden fixed inset-y-0 right-0 w-full sm:w-96 z-50 bg-card border-l border-border shadow-xl transform transition-transform duration-300 ease-in-out'>
-                        <div className='flex items-center justify-between p-4 border-b border-border'>
-                            <h2 className='text-lg font-semibold'>Chat</h2>
-                            <button
-                                onClick={() => setIsChatOpen(false)}
-                                className='p-2 hover:bg-muted rounded-lg transition-colors'
-                                aria-label='Close chat'
-                            >
-                                <X className='w-5 h-5' />
-                            </button>
-                        </div>
-                        <div className='h-[calc(100vh-73px)] pb-36'>
-                            <ChatSidebar
-                                messages={messages}
-                                chatInput={chatInput}
-                                showSuggestions={showSuggestions}
-                                onInputChange={handleInputChange}
-                                onSendMessage={handleSendMessage}
-                                onSuggestionClick={handleSuggestionClick}
-                            />
-                        </div>
-                    </div>
-                </>
-            )}
+        {/* Full Screen Chat Panel */}
+        <div className='lg:hidden fixed inset-0 z-50 bg-card flex flex-col'>
+            <div className='flex items-center justify-between p-4 border-b border-border flex-shrink-0'>
+                <h2 className='text-lg font-semibold'>Chat</h2>
+                <button
+                    onClick={() => setIsChatOpen(false)}
+                    className='p-2 hover:bg-muted rounded-lg transition-colors'
+                    aria-label='Close chat'
+                >
+                    <X className='w-5 h-5' />
+                </button>
+            </div>
+            <div className='flex-1 overflow-hidden'>
+                <ChatSidebar
+                    messages={messages}
+                    chatInput={chatInput}
+                    showSuggestions={showSuggestions}
+                    onInputChange={handleInputChange}
+                    onSendMessage={handleSendMessage}
+                    onSuggestionClick={handleSuggestionClick}
+                    isMobile={true}
+                />
+            </div>
+        </div>
+    </>
+)}
 
-            <CustomAudioPlayer
-                recordingUrl={meetingData?.recordingUrl}
-                isOwner={isOwner}
-                isChatOpen={isDesktopChatOpen}
-                isSidebarCollapsed={isSidebarCollapsed}
-            />
+{/* Audio Player - Hidden when mobile chat is open */}
+{(!isChatOpen || window.innerWidth >= 1024) && (
+    <CustomAudioPlayer
+        recordingUrl={meetingData?.recordingUrl}
+        isOwner={isOwner}
+        isChatOpen={isDesktopChatOpen}
+        isSidebarCollapsed={isSidebarCollapsed}
+    />
+)}
         </div>
     )
 }
