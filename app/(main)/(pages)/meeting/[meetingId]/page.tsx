@@ -55,35 +55,46 @@ function MeetingDetail() {
     return (
         <div className='min-h-screen bg-background'>
 
-            <MeetingHeader
-                title={meetingData?.title || 'Meeting'}
-                meetingId={meetingId}
-                summary={meetingData?.summary}
-                actionItems={meetingData?.actionItems?.map(item => `• ${item.text}`).join('\n') || ''}
-                isOwner={isOwner}
-                isLoading={!userChecked}
-            />
+            
+
             <div className='flex h-[calc(100vh-73px)] relative overflow-hidden'>
                 <div 
-                    className={`flex-1 p-4 md:p-6 overflow-y-auto pb-24 ${!userChecked
+                    className={`flex-1 flex flex-col overflow-hidden ${!userChecked
                         ? ''
                         : !isOwner
-                            ? 'max-w-4xl mx-auto'
+                            ? ''
                             : ''
                     }`}
-                    style={{
-                        scrollbarWidth: 'none',
-                        msOverflowStyle: 'none',
-                    }}
                 >
-                    <style dangerouslySetInnerHTML={{
-                        __html: `
-                            .flex-1::-webkit-scrollbar {
-                                display: none;
-                            }
-                        `
-                    }} />
-                    <MeetingInfo meetingData={meetingInfoData} />
+                    {/* Meeting Header - Full width at top */}
+                    <div className='flex-shrink-0 border-b border-border'>
+                        <MeetingHeader
+                            title={meetingData?.title || 'Meeting'}
+                            meetingId={meetingId}
+                            summary={meetingData?.summary}
+                            actionItems={meetingData?.actionItems?.map(item => `• ${item.text}`).join('\n') || ''}
+                            isOwner={isOwner}
+                            isLoading={!userChecked}
+                        />
+                    </div>
+
+                    {/* Scrollable Content */}
+                    <div 
+                        className='flex-1 p-4 md:p-6 overflow-y-auto pb-24'
+                        style={{
+                            scrollbarWidth: 'none',
+                            msOverflowStyle: 'none',
+                        }}
+                    >
+                        <style dangerouslySetInnerHTML={{
+                            __html: `
+                                .flex-1::-webkit-scrollbar {
+                                    display: none;
+                                }
+                            `
+                        }} />
+              
+                        <MeetingInfo meetingData={meetingInfoData} />
 
                     <div className='mb-8'>
                         <div className='flex border-b border-border items-center justify-between'>
@@ -234,35 +245,32 @@ function MeetingDetail() {
                         </div>
 
                     </div>
+                    </div>
 
                 </div>
 
-                {/* Desktop ChatSidebar - Sticky positioned */}
+                {/* Desktop ChatSidebar - Flex layout, responsive */}
                 {userChecked && isOwner && (
-                    <div className={`hidden lg:flex flex-col transition-all duration-300 sticky top-0 self-start bg-card ${isDesktopChatOpen ? 'w-96' : 'w-0 overflow-hidden'}`}>
-                        {isDesktopChatOpen && (
-                            <div className='h-[calc(106vh-165px)] overflow-hidden'>
-                                <ChatSidebar
-                                    messages={messages}
-                                    chatInput={chatInput}
-                                    showSuggestions={showSuggestions}
-                                    onInputChange={handleInputChange}
-                                    onSendMessage={handleSendMessage}
-                                    onSuggestionClick={handleSuggestionClick}
-                                    onClose={() => setIsDesktopChatOpen(false)}
-                                />
-                            </div>
-                        )}
+                    <div className={`hidden lg:flex transition-all duration-300 ease-in-out overflow-hidden h-full bg-card border-l border-border ${isDesktopChatOpen ? 'w-96' : 'w-0'}`}>
+                        <ChatSidebar
+                            messages={messages}
+                            chatInput={chatInput}
+                            showSuggestions={showSuggestions}
+                            onInputChange={handleInputChange}
+                            onSendMessage={handleSendMessage}
+                            onSuggestionClick={handleSuggestionClick}
+                            onClose={() => setIsDesktopChatOpen(false)}
+                        />
                     </div>
                 )}
 
             </div>
 
-            {/* Floating Chat Toggle Button - Right Edge (Desktop only) */}
+            {/* Chat Toggle Button - Positioned at right edge when closed */}
             {userChecked && isOwner && !isDesktopChatOpen && (
                 <button
                     onClick={() => setIsDesktopChatOpen(true)}
-                    className='hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 bg-primary/90 hover:bg-primary text-primary-foreground rounded-l-lg p-3 shadow-lg z-30 transition-all duration-300'
+                    className='hidden lg:flex fixed right-0 top-24 bg-primary/90 hover:bg-primary text-primary-foreground rounded-l-lg p-3 shadow-lg z-20 transition-all duration-300'
                     aria-label='Open chat'
                     title='Open chat'
                 >

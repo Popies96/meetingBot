@@ -4,6 +4,7 @@ import React from 'react'
 import { useIntegrations } from './hooks/useIntegrations'
 import SetupForm from './_components/SetupForm'
 import IntegrationCard from './_components/IntegrationCard'
+import { Badge } from '@/components/ui/badge'
 
 function Integrations() {
 
@@ -71,16 +72,22 @@ function Integrations() {
 
                 <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
                     {integrations.map((integration) => (
-                        <IntegrationCard
-                            key={integration.platform}
-                            integration={integration}
-                            onConnect={handleConnect}
-                            onDisconnect={handleDisconnect}
-                            onSetup={(platform) => {
-                                setSetupMode(platform)
-                                fetchSetupData(platform)
-                            }}
-                        />
+                        <div key={integration.platform} className='relative'>
+                            {integration.platform === 'discord' && (
+                                <Badge className='absolute -top-2 -right-2 z-10 bg-primary text-primary-foreground text-xs px-2 py-0.5 shadow-lg'>
+                                    New
+                                </Badge>
+                            )}
+                            <IntegrationCard
+                                integration={integration}
+                                onConnect={handleConnect}
+                                onDisconnect={handleDisconnect}
+                                onSetup={(platform) => {
+                                    setSetupMode(platform)
+                                    fetchSetupData(platform)
+                                }}
+                            />
+                        </div>
                     ))}
                 </div>
 

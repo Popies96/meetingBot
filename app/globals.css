@@ -126,3 +126,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+[data-state="collapsed"] [data-sidebar="group-content"] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+[data-state="collapsed"] [data-sidebar="menu"] {
+  align-items: center;
+}
