@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs"
 import { ArrowRight, CheckCircle, ChevronRight, Play, Sparkles, Menu, X } from "lucide-react"
-import { useTheme } from "next-themes"
 import Link from "next/link"
 import Image from "next/image"
 import { useEffect, useState } from "react"
@@ -116,7 +115,7 @@ export default function HeroSection() {
                 </div>
             </nav>
 
-            <section className="relative min-h-screen px-4 w-full -mt-[73px] pt-[101px] flex items-center overflow-hidden">
+            <section className="relative min-h-screen px-4 w-full -mt-[80px] pt-[101px] flex items-center overflow-hidden">
                 <div className={cn(
                     "absolute inset-0 -z-10 w-full min-h-screen bg-black overflow-hidden transition-all duration-1500 ease-out",
                     mounted ? "opacity-100 scale-100" : "opacity-0 scale-110"
@@ -217,7 +216,7 @@ export default function HeroSection() {
                                 </Button>
                             </SignUpButton>
                         )}
-                        <Button variant="outline" size="lg" className="border-gray-700 text-white hover:bg-gray-800 hover:text-white px-8 py-4 cursor-pointer transition-all hover:scale-110 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                        <Button variant="outline" size="lg" className="border-gray-700 text-gray-700 hover:bg-gray-800 hover:text-white px-8 py-4 cursor-pointer transition-all hover:scale-110 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
                             <Play className="w-5 h-5 mr-2" />
                             <span>Watch Demo</span>
                         </Button>

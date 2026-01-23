@@ -10,7 +10,7 @@ export default function MacbookScrollD() {
         <ContainerScroll
           titleComponent={
             <>
-              <h1 className="text-4xl font-semibold text-black dark:text-white">
+              <h1 className="text-4xl font-semibold text-white">
                 Unleash the power of <br />
                 <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
                   Productive Meetings
@@ -35,7 +35,7 @@ export default function MacbookScrollD() {
         <ContainerScroll
           titleComponent={
             <>
-              <h1 className="text-4xl font-semibold text-black dark:text-white">
+              <h1 className="text-4xl font-semibold text-white">
                 Unleash the power of <br />
                 <span className="text-4xl font-bold mt-1 leading-none">
                   Productive Meetings

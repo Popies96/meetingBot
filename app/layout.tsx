@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sonner";
+import RouteLoader from "./components/loader/loader";
 import {
   ClerkProvider,
  
@@ -59,17 +60,18 @@ export default function RootLayout({
       <body suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-           <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
- {children}
-            <Analytics />
-            <SpeedInsights />
-            <Toaster position="top-center" />
-          </ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <RouteLoader />
+          {children}
+          <Analytics />
+          <SpeedInsights />
+          <Toaster position="top-center" />
+        </ThemeProvider>
       </body>
     </html>
     </ClerkProvider>

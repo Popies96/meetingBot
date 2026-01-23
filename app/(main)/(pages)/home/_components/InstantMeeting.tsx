@@ -128,44 +128,50 @@ function InstantMeeting() {
             <div className='bg-gradient-to-br from-card via-card/95 to-card/90 rounded-xl p-4 backdrop-blur-sm'>
                 <h3 className='text-sm font-semibold text-foreground mb-3 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-800 bg-clip-text text-transparent'>Join Meeting with Bot</h3>
 
-            {/* Platform Selection */}
-            <div className='flex gap-2 mb-2'>
-                <button
-                    onClick={() => setSelectedPlatform('google-meet')}
-                    className={`flex-1 flex items-center gap-2 px-3 py-2 rounded-md border transition-all text-xs ${
-                        selectedPlatform === 'google-meet'
-                            ? 'border-primary bg-primary/10'
-                            : 'border-border bg-muted/20 hover:bg-muted/40'
-                    }`}
-                >
-                    <span className='inline-flex h-7 w-7 items-center justify-center rounded-md bg-[#0F9D58] text-white text-xs font-bold'>G</span>
-                    <span className='font-medium text-foreground'>Google Meet</span>
-                </button>
+          {/* Platform Selection */}
+<div className='flex gap-2 mb-2'>
+    <button
+        onClick={() => setSelectedPlatform('google-meet')}
+        className={`flex-1 flex items-center gap-2 px-3 py-2 rounded-md border transition-all text-xs ${
+            selectedPlatform === 'google-meet'
+                ? 'border-primary bg-primary/10'
+                : 'border-border bg-muted/20 hover:bg-muted/40'
+        }`}
+    >
+        <span className='flex-shrink-0 flex h-7 w-7 items-center justify-center rounded-md bg-[#0F9D58] text-white text-xs font-bold'>
+            G
+        </span>
+        <span className='font-medium text-foreground'>Google Meet</span>
+    </button>
 
-                <button
-                    onClick={() => setSelectedPlatform('zoom')}
-                    className={`flex-1 flex items-center gap-2 px-3 py-2 rounded-md border transition-all text-xs ${
-                        selectedPlatform === 'zoom'
-                            ? 'border-primary bg-primary/10'
-                            : 'border-border bg-muted/20 hover:bg-muted/40'
-                    }`}
-                >
-                    <span className='inline-flex h-7 w-7 items-center justify-center rounded-md bg-[#2D8CFF] text-white text-xs font-bold'>Z</span>
-                    <span className='font-medium text-foreground'>Zoom</span>
-                </button>
+    <button
+        onClick={() => setSelectedPlatform('zoom')}
+        className={`flex-1 flex items-center gap-2 px-3 py-2 rounded-md border transition-all text-xs ${
+            selectedPlatform === 'zoom'
+                ? 'border-primary bg-primary/10'
+                : 'border-border bg-muted/20 hover:bg-muted/40'
+        }`}
+    >
+        <span className='flex-shrink-0 flex h-7 w-7 items-center justify-center rounded-md bg-[#2D8CFF] text-white text-xs font-bold'>
+            Z
+        </span>
+        <span className='font-medium text-foreground'>Zoom</span>
+    </button>
 
-                <button
-                    onClick={() => setSelectedPlatform('microsoft')}
-                    className={`flex-1 flex items-center gap-2 px-3 py-2 rounded-md border transition-all text-xs ${
-                        selectedPlatform === 'microsoft'
-                            ? 'border-primary bg-primary/10'
-                            : 'border-border bg-muted/20 hover:bg-muted/40'
-                    }`}
-                >
-                    <span className='inline-flex h-7 w-7 items-center justify-center rounded-md bg-[#7B3FF2] text-white text-xs font-bold'>M</span>
-                    <span className='font-medium text-foreground'>Microsoft Teams</span>
-                </button>
-            </div>
+    <button
+        onClick={() => setSelectedPlatform('microsoft')}
+        className={`flex-1 flex items-center gap-2 px-3 py-2 rounded-md border transition-all text-xs ${
+            selectedPlatform === 'microsoft'
+                ? 'border-primary bg-primary/10'
+                : 'border-border bg-muted/20 hover:bg-muted/40'
+        }`}
+    >
+        <span className='flex-shrink-0 flex h-7 w-7 items-center justify-center rounded-md bg-[#7B3FF2] text-white text-xs font-bold'>
+            M
+        </span>
+        <span className='font-medium text-foreground'>Microsoft Teams</span>
+    </button>
+</div>
 
             {/* Meeting URL Input */}
             {selectedPlatform && (

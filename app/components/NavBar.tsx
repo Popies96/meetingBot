@@ -3,8 +3,8 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, BookOpen, User, Filter, X, Calendar, Clock } from "lucide-react";
-import { useUser } from "@clerk/nextjs";
+import { Search, BookOpen, User, Filter, X, Calendar, Clock, LogOut, Settings, HelpCircle } from "lucide-react";
+import { useUser, useClerk } from "@clerk/nextjs";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -12,11 +12,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 import { useSearch } from "@/app/contexts/SearchContext";
 
 export function NavBar() {
     const { user } = useUser()
+    const { signOut } = useClerk()
     const router = useRouter()
     const {
         searchQuery,
@@ -110,6 +119,11 @@ export function NavBar() {
         router.push(`/meeting/${meetingId}`)
         setShowResults(false)
         setSearchQuery('')
+    }
+
+    const handleSignOut = async () => {
+        await signOut()
+        router.push('/')
     }
 
     const formatDate = (dateString: string) => {
@@ -291,24 +305,72 @@ export function NavBar() {
                 >
                     <BookOpen className="h-5 w-5" />
                 </Button>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 rounded-full overflow-hidden p-0"
-                    title="User Profile"
-                >
-                    {user?.imageUrl ? (
-                        <img
-                            src={user.imageUrl}
-                            alt="profile"
-                            className="h-8 w-8 rounded-full object-cover"
-                        />
-                    ) : (
-                        <div className="h-8 w-8 bg-primary/10 rounded-full flex items-center justify-center">
-                            <User className="h-4 w-4 text-primary" />
-                        </div>
-                    )}
-                </Button>
+
+                {/* User Profile Dropdown */}
+                {/* User Profile Dropdown */}
+<DropdownMenu>
+    <DropdownMenuTrigger asChild>
+        <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 rounded-full overflow-hidden p-0 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer transition-all duration-200 hover:scale-110 hover:ring-2 hover:ring-primary/20 hover:shadow-lg"
+        >
+            {user?.imageUrl ? (
+                <img
+                    src={user.imageUrl}
+                    alt="profile"
+                    className="h-8 w-8 rounded-full object-cover transition-transform duration-200 hover:brightness-110"
+                />
+            ) : (
+                <div className="h-8 w-8 bg-primary/10 rounded-full flex items-center justify-center transition-all duration-200 hover:bg-primary/20">
+                    <User className="h-4 w-4 text-primary" />
+                </div>
+            )}
+        </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent align="end" className="w-64 p-2">
+        <DropdownMenuLabel className="px-3 py-3">
+            <div className="flex flex-col space-y-1.5">
+                <p className="text-sm font-semibold leading-none">
+                    {user?.fullName || user?.firstName || 'User'}
+                </p>
+                <p className="text-xs leading-none text-muted-foreground">
+                    {user?.primaryEmailAddress?.emailAddress}
+                </p>
+            </div>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator className="my-2" />
+        <DropdownMenuItem 
+            onClick={() => router.push('/profile')} 
+            className="cursor-pointer px-3 py-2.5 rounded-md"
+        >
+            <User className="mr-3 h-4 w-4" />
+            <span>Profile</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem 
+            onClick={() => router.push('/settings')} 
+            className="cursor-pointer px-3 py-2.5 rounded-md"
+        >
+            <Settings className="mr-3 h-4 w-4" />
+            <span>Settings</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem 
+            onClick={() => router.push('/help')} 
+            className="cursor-pointer px-3 py-2.5 rounded-md"
+        >
+            <HelpCircle className="mr-3 h-4 w-4" />
+            <span>Help & Support</span>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator className="my-2" />
+        <DropdownMenuItem 
+            onClick={handleSignOut}
+            className="text-red-600 focus:text-red-600 focus:bg-red-50 dark:focus:bg-red-950 cursor-pointer px-3 py-2.5 rounded-md"
+        >
+            <LogOut className="mr-3 h-4 w-4" />
+            <span>Sign Out</span>
+        </DropdownMenuItem>
+    </DropdownMenuContent>
+</DropdownMenu>
             </div>
         </header>
     )
