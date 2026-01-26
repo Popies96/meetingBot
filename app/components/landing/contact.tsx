@@ -41,8 +41,8 @@ function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="relative w-full max-w-6xl mx-4 bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+      <div className="relative w-full max-w-6xl bg-gray-900 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
@@ -50,72 +50,72 @@ function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
           <X size={24} />
         </button>
 
-        <div className="grid md:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Left Section */}
-          <div className="bg-gray-800 p-8 md:p-12">
-            <p className="text-blue-500 text-sm mb-4">Get in touch with us</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">
+          <div className="bg-gray-800 p-6 sm:p-8 md:p-12">
+            <p className="text-blue-500 text-xs sm:text-sm mb-3 sm:mb-4">Get in touch with us</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8 sm:mb-12">
               Need a Help? Get in touch with us!
             </h2>
 
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {/* Location */}
-              <div className="flex gap-4">
+              <div className="flex gap-3 sm:gap-4">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center">
-                    <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600/20 flex items-center justify-center">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold mb-2">Where are we from ?</h3>
-                  <p className="text-gray-400 text-sm">Tunisia , Tunis</p>
+                  <h3 className="text-white font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Where are we from ?</h3>
+                  <p className="text-gray-400 text-xs sm:text-sm">Tunisia , Tunis</p>
                 </div>
               </div>
 
               {/* Phone */}
-              <div className="flex gap-4">
+              <div className="flex gap-3 sm:gap-4">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center">
-                    <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600/20 flex items-center justify-center">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold mb-2">Don't hesitate to reach out!</h3>
-                  <p className="text-gray-400 text-sm">Phone : 000-0000-0000</p>
-                  <p className="text-gray-400 text-sm">Phone : 000-0000-0000</p>
+                  <h3 className="text-white font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Don't hesitate to reach out!</h3>
+                  <p className="text-gray-400 text-xs sm:text-sm">Phone : 000-0000-0000</p>
+                  <p className="text-gray-400 text-xs sm:text-sm">Phone : 000-0000-0000</p>
                 </div>
               </div>
 
               {/* Email */}
-              <div className="flex gap-4">
+              <div className="flex gap-3 sm:gap-4">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center">
-                    <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600/20 flex items-center justify-center">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
                 </div>
-                <div>
-                  <h3 className="text-white font-semibold mb-2">How can we assist you?</h3>
-                  <p className="text-gray-400 text-sm">neuronote.team@gmail.com</p>
-                  <p className="text-gray-400 text-sm">mahmoud.chouchane@gmail.com</p>
-                  <p className="text-gray-400 text-sm">azizbelfaidi.aziz@gmail.com</p>
+                <div className="min-w-0">
+                  <h3 className="text-white font-semibold mb-1 sm:mb-2 text-sm sm:text-base">How can we assist you?</h3>
+                  <p className="text-gray-400 text-xs sm:text-sm break-words">neuronote.team@gmail.com</p>
+                  <p className="text-gray-400 text-xs sm:text-sm break-words">mahmoud.chouchane@gmail.com</p>
+                  <p className="text-gray-400 text-xs sm:text-sm break-words">azizbelfaidi.aziz@gmail.com</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right Section - Form */}
-          <div className="bg-gray-900 p-8 md:p-12 relative">
-            <h2 className="text-3xl font-bold text-white mb-8">Say hello!</h2>
+          <div className="bg-gray-900 p-6 sm:p-8 md:p-12 relative">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8">Say hello!</h2>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               <div>
-                <label className="block text-gray-300 text-sm mb-2">Full Name</label>
+                <label className="block text-gray-300 text-xs sm:text-sm mb-2">Full Name</label>
                 <div className="relative">
                   <input
                     type="text"
@@ -123,17 +123,17 @@ function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                     value={formData.fullName}
                     onChange={handleChange}
                     placeholder="Enter your name here..."
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
                     required
                   />
-                  <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm mb-2">Your Email</label>
+                <label className="block text-gray-300 text-xs sm:text-sm mb-2">Your Email</label>
                 <div className="relative">
                   <input
                     type="email"
@@ -141,17 +141,17 @@ function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Enter your email here..."
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
                     required
                   />
-                  <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm mb-2">Message</label>
+                <label className="block text-gray-300 text-xs sm:text-sm mb-2">Message</label>
                 <div className="relative">
                   <textarea
                     name="message"
@@ -159,10 +159,10 @@ function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                     onChange={handleChange}
                     placeholder="Enter your message"
                     rows={4}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
                     required
                   />
-                  <svg className="absolute right-4 top-4 w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="absolute right-3 sm:right-4 top-3 sm:top-4 w-4 h-4 sm:w-5 sm:h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                   </svg>
                 </div>
@@ -170,12 +170,12 @@ function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors duration-300"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 sm:py-3 text-sm sm:text-base rounded-lg transition-colors duration-300"
               >
                 Get Free Quote
               </button>
 
-              <p className="text-sm text-gray-400 text-center">
+              <p className="text-xs sm:text-sm text-gray-400 text-center">
                 I understand that my data will be hold securely in accordance with the{' '}
                 <a href="#" className="text-white underline hover:text-blue-500 transition-colors">
                   privacy policy
@@ -185,22 +185,22 @@ function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
 
             {/* Robot Animation Overlay */}
             {showRobot && (
-              <div className="absolute inset-0 bg-gray-900/98 backdrop-blur-sm flex flex-col items-center justify-center z-20 animate-fadeIn">
+              <div className="absolute inset-0 bg-gray-900/98 backdrop-blur-sm flex flex-col items-center justify-center z-20 animate-fadeIn px-4">
                 <div className="flex flex-col items-center">
                   {/* Speech Bubble - Now on top */}
-                  <div className="mb-8 animate-slideDown">
+                  <div className="mb-6 sm:mb-8 animate-slideDown">
                     <div className="relative">
-                      <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-5 rounded-3xl shadow-2xl max-w-sm backdrop-blur-lg border border-blue-400/30">
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl animate-bounce">🧠</span>
-                          <p className="text-base font-medium leading-relaxed">
+                      <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 sm:px-8 py-4 sm:py-5 rounded-3xl shadow-2xl max-w-xs sm:max-w-sm backdrop-blur-lg border border-blue-400/30">
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <span className="text-xl sm:text-2xl animate-bounce">🧠</span>
+                          <p className="text-sm sm:text-base font-medium leading-relaxed">
                             Message stored in my neural notes!
                           </p>
                         </div>
                       </div>
                       {/* Modern bubble tail */}
-                      <div className="absolute left-1/2 -translate-x-1/2 -bottom-3">
-                        <div className="w-6 h-6 bg-gradient-to-br from-blue-600 to-blue-500 rotate-45 rounded-sm"></div>
+                      <div className="absolute left-1/2 -translate-x-1/2 -bottom-2.5 sm:-bottom-3">
+                        <div className="w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-br from-blue-600 to-blue-500 rotate-45 rounded-sm"></div>
                       </div>
                     </div>
                   </div>
@@ -208,7 +208,7 @@ function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                   {/* Modern Robot SVG */}
                   <div className="animate-bounceIn">
                     <svg
-                      className="w-40 h-40 animate-float"
+                      className="w-32 h-32 sm:w-40 sm:h-40 animate-float"
                       viewBox="0 0 200 200"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
